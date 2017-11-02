@@ -1,4 +1,3 @@
-composer.lock
 vendor
 nbproject
 .idea
@@ -7,3 +6,4 @@ nbproject
 .DS_Store
 .*.sw*
 .*.un~
+qrcode.png
