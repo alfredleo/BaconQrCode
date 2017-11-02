@@ -41,6 +41,7 @@ class Png extends AbstractRenderer
     {
         $this->image = imagecreatetruecolor($this->finalWidth, $this->finalHeight);
 //        imageantialias($this->image, true);
+//        imagealphablending($this->image, true);
     }
 
     /**
@@ -114,19 +115,23 @@ class Png extends AbstractRenderer
      */
     public function drawEllipse($x, $y, $colorId)
     {
-        $x2 = $x + $this->blockSize - 1;
-        $y2 = $y + $this->blockSize - 1;
+        $img = $this->image;
+        $radius = ($this->blockSize - 1) / 2;
+        $cx = $x + $radius;
+        $cy = $y + $radius;
+        $fillColor = $this->colors[$colorId];
 
-        /* imagefilledellipse(
-             $this->image,
-             ($x + $x2) / 2,
-             ($y + $y2) / 2,
-             $this->blockSize - 1,
-             $this->blockSize - 1,
-             $this->colors[$colorId]
-         );*/
-        $this->imageSmoothCircle($this->image, ($x + $x2) / 2, ($y + $y2) / 2,
-            ($this->blockSize - 1) / 2, $this->colors[$colorId]);
+        /*imagefilledellipse(
+            $this->image,
+            $cx,
+            $cy,
+            $radius,
+            $radius,
+            $fillColor
+        );*/
+
+        imageSmoothArc($img, $cx, $cy, $radius, $radius, $fillColor, 0, pi() * 2);
+        //        $this->imageSmoothCircle($img, $cx, $cy, $radius, $fillColor);
     }
 
     public function imageSmoothCircle(&$img, $cx, $cy, $cr, $color)
