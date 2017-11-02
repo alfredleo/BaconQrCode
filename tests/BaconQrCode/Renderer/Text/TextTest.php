@@ -58,8 +58,7 @@ class PlainTest extends TestCase
             " █ ███ █   █   █ ██ ██ \n" .
             " █     █ ███  ███ ████ \n" .
             " ███████ ████   ██     \n" .
-            "                       \n"
-        ;
+            "                       \n";
 
         $qrCode = Encoder::encode(
             $content,
@@ -93,8 +92,7 @@ class PlainTest extends TestCase
             "█ ███ █ ██ ██  █ ██  \n" .
             "█ ███ █   █   █ ██ ██\n" .
             "█     █ ███  ███ ████\n" .
-            "███████ ████   ██    \n"
-        ;
+            "███████ ████   ██    \n";
 
         $qrCode = Encoder::encode(
             $content,
@@ -132,8 +130,7 @@ class PlainTest extends TestCase
             "-#-###-#---#---#-##-##-\n" .
             "-#-----#-###--###-####-\n" .
             "-#######-####---##-----\n" .
-            "-----------------------\n"
-        ;
+            "-----------------------\n";
 
         $qrCode = Encoder::encode(
             $content,

@@ -130,7 +130,7 @@ class Png extends AbstractRenderer
             $fillColor
         );*/
 
-        imageSmoothArc($img, $cx, $cy, $radius, $radius, $fillColor, 0, pi()*2);
+        imageSmoothArc($img, $cx, $cy, $radius, $radius, $fillColor, 0, pi() * 2);
     }
 
     /**

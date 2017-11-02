@@ -60,8 +60,7 @@ class HtmlTest extends TestCase
             " █     █ ███  ███ ████ \n" .
             " ███████ ████   ██     \n" .
             "                       \n" .
-            '</pre>'
-        ;
+            '</pre>';
 
         $qrCode = Encoder::encode(
             $content,

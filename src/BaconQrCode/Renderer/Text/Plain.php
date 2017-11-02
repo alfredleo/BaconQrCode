@@ -95,7 +95,7 @@ class Plain implements RendererInterface
             throw new Exception\InvalidArgumentException('Margin must be equal to greater than 0');
         }
 
-        $this->margin = (int) $margin;
+        $this->margin = (int)$margin;
 
         return $this;
     }
@@ -121,11 +121,11 @@ class Plain implements RendererInterface
     {
         $result = '';
         $matrix = $qrCode->getMatrix();
-        $width  = $matrix->getWidth();
+        $width = $matrix->getWidth();
 
         // Top margin
         for ($x = 0; $x < $this->margin; $x++) {
-            $result .= str_repeat($this->emptyBlock, $width + 2 * $this->margin)."\n";
+            $result .= str_repeat($this->emptyBlock, $width + 2 * $this->margin) . "\n";
         }
 
         // Body
@@ -142,7 +142,7 @@ class Plain implements RendererInterface
 
         // Bottom margin
         for ($x = 0; $x < $this->margin; $x++) {
-            $result .= str_repeat($this->emptyBlock, $width + 2 * $this->margin)."\n";
+            $result .= str_repeat($this->emptyBlock, $width + 2 * $this->margin) . "\n";
         }
 
         return $result;

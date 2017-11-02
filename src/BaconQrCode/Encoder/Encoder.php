@@ -37,7 +37,7 @@ class Encoder
         -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1,  // 0x00-0x0f
         -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1,  // 0x10-0x1f
         36, -1, -1, -1, 37, 38, -1, -1, -1, -1, 39, 40, -1, 41, 42, 43,  // 0x20-0x2f
-        0,   1,  2,  3,  4,  5,  6,  7,  8,  9, 44, -1, -1, -1, -1, -1,  // 0x30-0x3f
+        0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 44, -1, -1, -1, -1, -1,  // 0x30-0x3f
         -1, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23, 24,  // 0x40-0x4f
         25, 26, 27, 28, 29, 30, 31, 32, 33, 34, 35, -1, -1, -1, -1, -1,  // 0x50-0x5f
     );
@@ -52,7 +52,7 @@ class Encoder
     /**
      * Encodes "content" with the error correction level "ecLevel".
      *
-     * @param  string               $content
+     * @param  string $content
      * @param  ErrorCorrectionLevel $ecLevel
      * @param  ?                    $hints
      * @return QrCode
@@ -89,15 +89,15 @@ class Encoder
         // But need to know how many bits it takes to know version. First we
         // take a guess at version by assuming version will be the minimum, 1:
         $provisionalBitsNeeded = $headerBits->getSize()
-                               + $mode->getCharacterCountBits(Version::getVersionForNumber(1))
-                               + $dataBits->getSize();
+            + $mode->getCharacterCountBits(Version::getVersionForNumber(1))
+            + $dataBits->getSize();
         $provisionalVersion = self::chooseVersion($provisionalBitsNeeded, $ecLevel);
 
         // Use that guess to calculate the right version. I am still not sure
         // this works in 100% of cases.
         $bitsNeeded = $headerBits->getSize()
-                    + $mode->getCharacterCountBits($provisionalVersion)
-                    + $dataBits->getSize();
+            + $mode->getCharacterCountBits($provisionalVersion)
+            + $dataBits->getSize();
         $version = self::chooseVersion($bitsNeeded, $ecLevel);
 
         $headerAndDataBits = new BitArray();
@@ -109,7 +109,7 @@ class Encoder
 
         // Put data together into the overall payload.
         $headerAndDataBits->appendBitArray($dataBits);
-        $ecBlocks     = $version->getEcBlocksForLevel($ecLevel);
+        $ecBlocks = $version->getEcBlocksForLevel($ecLevel);
         $numDataBytes = $version->getTotalCodewords() - $ecBlocks->getTotalEcCodewords();
 
         // Terminate the bits properly.
@@ -129,8 +129,8 @@ class Encoder
         $qrCode->setVersion($version);
 
         // Choose the mask pattern and set to "qrCode".
-        $dimension   = $version->getDimensionForVersion();
-        $matrix      = new ByteMatrix($dimension, $dimension);
+        $dimension = $version->getDimensionForVersion();
+        $matrix = new ByteMatrix($dimension, $dimension);
         $maskPattern = self::chooseMaskPattern($finalBits, $ecLevel, $version, $matrix);
         $qrCode->setMaskPattern($maskPattern);
 
@@ -171,9 +171,9 @@ class Encoder
             return self::isOnlyDoubleByteKanji($content) ? new Mode(Mode::KANJI) : new Mode(Mode::BYTE);
         }
 
-        $hasNumeric      = false;
+        $hasNumeric = false;
         $hasAlphanumeric = false;
-        $contentLength   = strlen($content);
+        $contentLength = strlen($content);
 
         for ($i = 0; $i < $contentLength; $i++) {
             $char = $content[$i];
@@ -215,10 +215,10 @@ class Encoder
     /**
      * Chooses the best mask pattern for a matrix.
      *
-     * @param  BitArray             $bits
+     * @param  BitArray $bits
      * @param  ErrorCorrectionLevel $ecLevel
-     * @param  Version              $version
-     * @param  ByteMatrix           $matrix
+     * @param  Version $version
+     * @param  ByteMatrix $matrix
      * @return integer
      */
     protected static function chooseMaskPattern(
@@ -226,8 +226,9 @@ class Encoder
         ErrorCorrectionLevel $ecLevel,
         Version $version,
         ByteMatrix $matrix
-    ) {
-        $minPenality     = PHP_INT_MAX;
+    )
+    {
+        $minPenality = PHP_INT_MAX;
         $bestMaskPattern = -1;
 
         for ($maskPattern = 0; $maskPattern < QrCode::NUM_MASK_PATTERNS; $maskPattern++) {
@@ -235,7 +236,7 @@ class Encoder
             $penalty = self::calculateMaskPenalty($matrix);
 
             if ($penalty < $minPenality) {
-                $minPenality     = $penalty;
+                $minPenality = $penalty;
                 $bestMaskPattern = $maskPattern;
             }
         }
@@ -246,7 +247,7 @@ class Encoder
     /**
      * Chooses the best version for the input.
      *
-     * @param  integer              $numInputBits
+     * @param  integer $numInputBits
      * @param  ErrorCorrectionLevel $ecLevel
      * @return Version
      * @throws Exception\WriterException
@@ -254,13 +255,13 @@ class Encoder
     protected static function chooseVersion($numInputBits, ErrorCorrectionLevel $ecLevel)
     {
         for ($versionNum = 1; $versionNum <= 40; $versionNum++) {
-            $version  = Version::getVersionForNumber($versionNum);
+            $version = Version::getVersionForNumber($versionNum);
             $numBytes = $version->getTotalCodewords();
 
-            $ecBlocks   = $version->getEcBlocksForLevel($ecLevel);
+            $ecBlocks = $version->getEcBlocksForLevel($ecLevel);
             $numEcBytes = $ecBlocks->getTotalEcCodewords();
 
-            $numDataBytes    = $numBytes - $numEcBytes;
+            $numDataBytes = $numBytes - $numEcBytes;
             $totalInputBytes = intval(($numInputBits + 8) / 8);
 
             if ($numDataBytes >= $totalInputBytes) {
@@ -274,7 +275,7 @@ class Encoder
     /**
      * Terminates the bits in a bit array.
      *
-     * @param  integer  $numDataBytes
+     * @param  integer $numDataBytes
      * @param  BitArray $bits
      * @throws Exception\WriterException
      */
@@ -324,19 +325,20 @@ class Encoder
         $numDataBytes,
         $numRsBlocks,
         $blockId
-    ) {
+    )
+    {
         if ($blockId >= $numRsBlocks) {
             throw new Exception\WriterException('Block ID too large');
         }
 
-        $numRsBlocksInGroup2   = $numTotalBytes % $numRsBlocks;
-        $numRsBlocksInGroup1   = $numRsBlocks - $numRsBlocksInGroup2;
+        $numRsBlocksInGroup2 = $numTotalBytes % $numRsBlocks;
+        $numRsBlocksInGroup1 = $numRsBlocks - $numRsBlocksInGroup2;
         $numTotalBytesInGroup1 = intval($numTotalBytes / $numRsBlocks);
         $numTotalBytesInGroup2 = $numTotalBytesInGroup1 + 1;
-        $numDataBytesInGroup1  = intval($numDataBytes / $numRsBlocks);
-        $numDataBytesInGroup2  = $numDataBytesInGroup1 + 1;
-        $numEcBytesInGroup1    = $numTotalBytesInGroup1 - $numDataBytesInGroup1;
-        $numEcBytesInGroup2    = $numTotalBytesInGroup2 - $numDataBytesInGroup2;
+        $numDataBytesInGroup1 = intval($numDataBytes / $numRsBlocks);
+        $numDataBytesInGroup2 = $numDataBytesInGroup1 + 1;
+        $numEcBytesInGroup1 = $numTotalBytesInGroup1 - $numDataBytesInGroup1;
+        $numEcBytesInGroup2 = $numTotalBytesInGroup2 - $numDataBytesInGroup2;
 
         if ($numEcBytesInGroup1 !== $numEcBytesInGroup2) {
             throw new Exception\WriterException('EC bytes mismatch');
@@ -364,9 +366,9 @@ class Encoder
      * Interleaves data with EC bytes.
      *
      * @param  BitArray $bits
-     * @param  integer  $numTotalBytes
-     * @param  integer  $numDataBytes
-     * @param  integer  $numRsBlocks
+     * @param  integer $numTotalBytes
+     * @param  integer $numDataBytes
+     * @param  integer $numRsBlocks
      * @return BitArray
      * @throws Exception\WriterException
      */
@@ -378,7 +380,7 @@ class Encoder
 
         $dataBytesOffset = 0;
         $maxNumDataBytes = 0;
-        $maxNumEcBytes   = 0;
+        $maxNumEcBytes = 0;
 
         $blocks = new SplFixedArray($numRsBlocks);
 
@@ -390,13 +392,13 @@ class Encoder
                 $i
             );
 
-            $size       = $numDataBytesInBlock;
-            $dataBytes  = $bits->toBytes(8 * $dataBytesOffset, $size);
-            $ecBytes    = self::generateEcBytes($dataBytes, $numEcBytesInBlock);
+            $size = $numDataBytesInBlock;
+            $dataBytes = $bits->toBytes(8 * $dataBytesOffset, $size);
+            $ecBytes = self::generateEcBytes($dataBytes, $numEcBytesInBlock);
             $blocks[$i] = new BlockPair($dataBytes, $ecBytes);
 
-            $maxNumDataBytes  = max($maxNumDataBytes, $size);
-            $maxNumEcBytes    = max($maxNumEcBytes, count($ecBytes));
+            $maxNumDataBytes = max($maxNumDataBytes, $size);
+            $maxNumEcBytes = max($maxNumEcBytes, count($ecBytes));
             $dataBytesOffset += $numDataBytesInBlock;
         }
 
@@ -437,20 +439,20 @@ class Encoder
      * Generates EC bytes for given data.
      *
      * @param  SplFixedArray $dataBytes
-     * @param  integer       $numEcBytesInBlock
+     * @param  integer $numEcBytesInBlock
      * @return SplFixedArray
      */
     protected static function generateEcBytes(SplFixedArray $dataBytes, $numEcBytesInBlock)
     {
         $numDataBytes = count($dataBytes);
-        $toEncode     = new SplFixedArray($numDataBytes + $numEcBytesInBlock);
+        $toEncode = new SplFixedArray($numDataBytes + $numEcBytesInBlock);
 
         for ($i = 0; $i < $numDataBytes; $i++) {
             $toEncode[$i] = $dataBytes[$i] & 0xff;
         }
 
         $ecBytes = new SplFixedArray($numEcBytesInBlock);
-        $codec   = self::getCodec($numDataBytes, $numEcBytesInBlock);
+        $codec = self::getCodec($numDataBytes, $numEcBytesInBlock);
         $codec->encode($toEncode, $ecBytes);
 
         return $ecBytes;
@@ -484,7 +486,7 @@ class Encoder
     /**
      * Appends mode information to a bit array.
      *
-     * @param  Mode     $mode
+     * @param  Mode $mode
      * @param  BitArray $bits
      * @return void
      */
@@ -496,9 +498,9 @@ class Encoder
     /**
      * Appends length information to a bit array.
      *
-     * @param  integer  $numLetters
-     * @param  Version  $version
-     * @param  Mode     $mode
+     * @param  integer $numLetters
+     * @param  Version $version
+     * @param  Mode $mode
      * @param  BitArray $bits
      * @return void
      * @throws Exception\WriterException
@@ -517,10 +519,10 @@ class Encoder
     /**
      * Appends bytes to a bit array in a specific mode.
      *
-     * @param  stirng   $content
-     * @param  Mode     $mode
+     * @param  stirng $content
+     * @param  Mode $mode
      * @param  BitArray $bits
-     * @param  string   $encoding
+     * @param  string $encoding
      * @return void
      * @throws Exception\WriterException
      */
@@ -551,27 +553,27 @@ class Encoder
     /**
      * Appends numeric bytes to a bit array.
      *
-     * @param  string   $content
+     * @param  string $content
      * @param  BitArray $bits
      * @return void
      */
     protected static function appendNumericBytes($content, BitArray $bits)
     {
         $length = strlen($content);
-        $i      = 0;
+        $i = 0;
 
         while ($i < $length) {
-            $num1 = (int) $content[$i];
+            $num1 = (int)$content[$i];
 
             if ($i + 2 < $length) {
                 // Encode three numeric letters in ten bits.
-                $num2 = (int) $content[$i + 1];
-                $num3 = (int) $content[$i + 2];
+                $num2 = (int)$content[$i + 1];
+                $num3 = (int)$content[$i + 2];
                 $bits->appendBits($num1 * 100 + $num2 * 10 + $num3, 10);
                 $i += 3;
             } elseif ($i + 1 < $length) {
                 // Encode two numeric letters in seven bits.
-                $num2 = (int) $content[$i + 1];
+                $num2 = (int)$content[$i + 1];
                 $bits->appendBits($num1 * 10 + $num2, 7);
                 $i += 2;
             } else {
@@ -585,14 +587,14 @@ class Encoder
     /**
      * Appends alpha-numeric bytes to a bit array.
      *
-     * @param  string   $content
+     * @param  string $content
      * @param  BitArray $bits
      * @return void
      */
     protected static function appendAlphanumericBytes($content, BitArray $bits)
     {
         $length = strlen($content);
-        $i      = 0;
+        $i = 0;
 
         while ($i < $length) {
             if (-1 === ($code1 = self::getAlphanumericCode($content[$i]))) {
@@ -618,7 +620,7 @@ class Encoder
     /**
      * Appends regular 8-bit bytes to a bit array.
      *
-     * @param  string   $content
+     * @param  string $content
      * @param  BitArray $bits
      * @return void
      */
@@ -638,7 +640,7 @@ class Encoder
     /**
      * Appends KANJI bytes to a bit array.
      *
-     * @param  string   $content
+     * @param  string $content
      * @param  BitArray $bits
      * @return void
      */
@@ -655,7 +657,7 @@ class Encoder
         for ($i = 0; $i < $length; $i += 2) {
             $byte1 = ord($content[$i]) & 0xff;
             $byte2 = ord($content[$i + 1]) & 0xff;
-            $code  = ($byte1 << 8) | $byte2;
+            $code = ($byte1 << 8) | $byte2;
 
             if ($code >= 0x8140 && $code <= 0x9ffc) {
                 $subtracted = $code - 0x8140;
@@ -675,7 +677,7 @@ class Encoder
      * Appends ECI information to a bit array.
      *
      * @param  CharacterSetEci $eci
-     * @param  BitArray        $bits
+     * @param  BitArray $bits
      * @return void
      */
     protected static function appendEci(CharacterSetEci $eci, BitArray $bits)

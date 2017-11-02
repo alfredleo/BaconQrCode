@@ -119,9 +119,9 @@ class BitArray
             return $this->size;
         }
 
-        $bitsOffset  = $from >> 5;
+        $bitsOffset = $from >> 5;
         $currentBits = $this->bits[$bitsOffset];
-        $bitsLength  = count($this->bits);
+        $bitsLength = count($this->bits);
 
         $currentBits &= ~((1 << ($from & 0x1f)) - 1);
 
@@ -150,9 +150,9 @@ class BitArray
             return $this->size;
         }
 
-        $bitsOffset  = $from >> 5;
+        $bitsOffset = $from >> 5;
         $currentBits = ~$this->bits[$bitsOffset];
-        $bitsLength  = count($this->bits);
+        $bitsLength = count($this->bits);
 
         $currentBits &= ~((1 << ($from & 0x1f)) - 1);
 
@@ -202,11 +202,11 @@ class BitArray
         $end--;
 
         $firstInt = $start >> 5;
-        $lastInt  = $end >> 5;
+        $lastInt = $end >> 5;
 
         for ($i = $firstInt; $i <= $lastInt; $i++) {
-            $firstBit = $i > $firstInt ?  0 : $start & 0x1f;
-            $lastBit  = $i < $lastInt ? 31 : $end & 0x1f;
+            $firstBit = $i > $firstInt ? 0 : $start & 0x1f;
+            $lastBit = $i < $lastInt ? 31 : $end & 0x1f;
 
             if ($firstBit === 0 && $lastBit === 31) {
                 $mask = 0x7fffffff;
@@ -258,11 +258,11 @@ class BitArray
         $end--;
 
         $firstInt = $start >> 5;
-        $lastInt  = $end >> 5;
+        $lastInt = $end >> 5;
 
         for ($i = $firstInt; $i <= $lastInt; $i++) {
-            $firstBit = $i > $firstInt ?  0 : $start & 0x1f;
-            $lastBit  = $i < $lastInt ? 31 : $end & 0x1f;
+            $firstBit = $i > $firstInt ? 0 : $start & 0x1f;
+            $lastBit = $i < $lastInt ? 31 : $end & 0x1f;
 
             if ($firstBit === 0 && $lastBit === 31) {
                 $mask = 0x7fffffff;
@@ -346,7 +346,7 @@ class BitArray
     public function xorBits(self $other)
     {
         $bitsLength = count($this->bits);
-        $otherBits  = $other->getBitArray();
+        $otherBits = $other->getBitArray();
 
         if ($bitsLength !== count($otherBits)) {
             throw new Exception\InvalidArgumentException('Sizes don\'t match');

@@ -27,7 +27,7 @@ interface RendererInterface extends GeneralRendererInterface
     /**
      * Adds a color to the drawing area.
      *
-     * @param  string         $id
+     * @param  string $id
      * @param  ColorInterface $color
      * @return void
      */
@@ -46,7 +46,7 @@ interface RendererInterface extends GeneralRendererInterface
      *
      * @param  integer $x
      * @param  integer $y
-     * @param  string  $colorId
+     * @param  string $colorId
      * @return void
      */
     public function drawBlock($x, $y, $colorId);

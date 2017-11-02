@@ -46,8 +46,8 @@ class ByteMatrix
     public function __construct($width, $height)
     {
         $this->height = $height;
-        $this->width  = $width;
-        $this->bytes  = new SplFixedArray($height);
+        $this->width = $width;
+        $this->bytes = new SplFixedArray($height);
 
         for ($y = 0; $y < $height; $y++) {
             $this->bytes[$y] = new SplFixedArray($width);
@@ -106,7 +106,7 @@ class ByteMatrix
      */
     public function set($x, $y, $value)
     {
-        $this->bytes[$y][$x] = (int) $value;
+        $this->bytes[$y][$x] = (int)$value;
     }
 
     /**

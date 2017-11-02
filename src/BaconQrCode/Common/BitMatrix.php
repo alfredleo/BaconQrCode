@@ -51,7 +51,7 @@ class BitMatrix
     /**
      * Creates a new bit matrix with given dimensions.
      *
-     * @param  integer      $width
+     * @param  integer $width
      * @param  integer|null $height
      * @throws Exception\InvalidArgumentException
      */
@@ -65,10 +65,10 @@ class BitMatrix
             throw new Exception\InvalidArgumentException('Both dimensions must be greater than zero');
         }
 
-        $this->width   = $width;
-        $this->height  = $height;
+        $this->width = $width;
+        $this->height = $height;
         $this->rowSize = ($width + 31) >> 5;
-        $this->bits    = new SplFixedArray($this->rowSize * $height);
+        $this->bits = new SplFixedArray($this->rowSize * $height);
     }
 
     /**
@@ -143,7 +143,7 @@ class BitMatrix
             throw new Exception\InvalidArgumentException('Width and height must be at least 1');
         }
 
-        $right  = $left + $width;
+        $right = $left + $width;
         $bottom = $top + $height;
 
         if ($bottom > $this->height || $right > $this->width) {
@@ -163,7 +163,7 @@ class BitMatrix
     /**
      * A fast method to retrieve one row of data from the matrix as a BitArray.
      *
-     * @param  integer  $y
+     * @param  integer $y
      * @param  BitArray $row
      * @return BitArray
      */
@@ -185,7 +185,7 @@ class BitMatrix
     /**
      * Sets a row of data from a BitArray.
      *
-     * @param  integer  $y
+     * @param  integer $y
      * @param  BitArray $row
      * @return void
      */
@@ -205,9 +205,9 @@ class BitMatrix
      */
     public function getEnclosingRectangle()
     {
-        $left   = $this->width;
-        $top    = $this->height;
-        $right  = -1;
+        $left = $this->width;
+        $top = $this->height;
+        $right = -1;
         $bottom = -1;
 
         for ($y = 0; $y < $this->height; $y++) {
@@ -250,7 +250,7 @@ class BitMatrix
             }
         }
 
-        $width  = $right - $left;
+        $width = $right - $left;
         $height = $bottom - $top;
 
         if ($width < 0 || $height < 0) {
@@ -283,7 +283,7 @@ class BitMatrix
         $y = ($bitsOffset % $this->rowSize) << 5;
 
         $bits = $this->bits[$bitsOffset];
-        $bit  = 0;
+        $bit = 0;
 
         while (($bits << (31 - $bit)) === 0) {
             $bit++;
@@ -317,7 +317,7 @@ class BitMatrix
         $y = ($bitsOffset % $this->rowSize) << 5;
 
         $bits = $this->bits[$bitsOffset];
-        $bit  = 0;
+        $bit = 0;
 
         while (BitUtils::unsignedRightShift($bits, $bit) === 0) {
             $bit--;

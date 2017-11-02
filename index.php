@@ -23,4 +23,4 @@ $duration = number_format(($end - $start) * 1000, 3) . "ms";
 
 ?>
     <img src="qrcode.png"/>
-    <?php echo $duration; ?>
+<?php echo $duration; ?>

@@ -114,13 +114,13 @@ class FinderPattern implements DecoratorInterface
      * preProcess(): defined by DecoratorInterface.
      *
      * @see    DecoratorInterface::preProcess()
-     * @param  QrCode            $qrCode
+     * @param  QrCode $qrCode
      * @param  RendererInterface $renderer
-     * @param  integer           $outputWidth
-     * @param  integer           $outputHeight
-     * @param  integer           $leftPadding
-     * @param  integer           $topPadding
-     * @param  integer           $multiple
+     * @param  integer $outputWidth
+     * @param  integer $outputHeight
+     * @param  integer $leftPadding
+     * @param  integer $topPadding
+     * @param  integer $multiple
      * @return void
      */
     public function preProcess(
@@ -131,8 +131,9 @@ class FinderPattern implements DecoratorInterface
         $leftPadding,
         $topPadding,
         $multiple
-    ) {
-        $matrix    = $qrCode->getMatrix();
+    )
+    {
+        $matrix = $qrCode->getMatrix();
         $positions = array(
             array(0, 0),
             array($matrix->getWidth() - 7, 0),
@@ -153,13 +154,13 @@ class FinderPattern implements DecoratorInterface
      *
      * @see    DecoratorInterface::postProcess()
      *
-     * @param  QrCode            $qrCode
+     * @param  QrCode $qrCode
      * @param  RendererInterface $renderer
-     * @param  integer           $outputWidth
-     * @param  integer           $outputHeight
-     * @param  integer           $leftPadding
-     * @param  integer           $topPadding
-     * @param  integer           $multiple
+     * @param  integer $outputWidth
+     * @param  integer $outputHeight
+     * @param  integer $leftPadding
+     * @param  integer $topPadding
+     * @param  integer $multiple
      * @return void
      */
     public function postProcess(
@@ -170,8 +171,9 @@ class FinderPattern implements DecoratorInterface
         $leftPadding,
         $topPadding,
         $multiple
-    ) {
-        $matrix    = $qrCode->getMatrix();
+    )
+    {
+        $matrix = $qrCode->getMatrix();
         $positions = array(
             array(0, 0),
             array($matrix->getWidth() - 7, 0),

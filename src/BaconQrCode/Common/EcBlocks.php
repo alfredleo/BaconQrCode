@@ -37,8 +37,8 @@ class EcBlocks
     /**
      * Creates a new EC blocks instance.
      *
-     * @param integer      $ecCodewordsPerBlock
-     * @param EcBlock      $ecb1
+     * @param integer $ecCodewordsPerBlock
+     * @param EcBlock $ecb1
      * @param EcBlock|null $ecb2
      */
     public function __construct($ecCodewordsPerBlock, EcBlock $ecb1, EcBlock $ecb2 = null)

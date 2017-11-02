@@ -67,7 +67,7 @@ class Version
     /**
      * Creates a new version.
      *
-     * @param integer       $versionNumber
+     * @param integer $versionNumber
      * @param SplFixedArray $alignmentPatternCenters
      * @param SplFixedArray $ecBlocks
      */
@@ -75,13 +75,14 @@ class Version
         $versionNumber,
         SplFixedArray $alignmentPatternCenters,
         SplFixedArray $ecBlocks
-    ) {
-        $this->versionNumber           = $versionNumber;
+    )
+    {
+        $this->versionNumber = $versionNumber;
         $this->alignmentPatternCenters = $alignmentPatternCenters;
-        $this->errorCorrectionBlocks   = $ecBlocks;
+        $this->errorCorrectionBlocks = $ecBlocks;
 
         $totalCodewords = 0;
-        $ecCodewords    = $ecBlocks[0]->getEcCodewordsPerBlock();
+        $ecCodewords = $ecBlocks[0]->getEcCodewordsPerBlock();
 
         foreach ($ecBlocks[0]->getEcBlocks() as $ecBlock) {
             $totalCodewords += $ecBlock->getCount() * ($ecBlock->getDataCodewords() + $ecCodewords);
@@ -186,7 +187,7 @@ class Version
     public static function decodeVersionInformation($versionBits)
     {
         $bestDifference = PHP_INT_MAX;
-        $bestVersion    = 0;
+        $bestVersion = 0;
 
         foreach (self::$versionDecodeInfo as $i => $targetVersion) {
             if ($targetVersion === $versionBits) {
@@ -196,7 +197,7 @@ class Version
             $bitsDifference = FormatInformation::numBitsDiffering($versionBits, $targetVersion);
 
             if ($bitsDifference < $bestDifference) {
-                $bestVersion    = $i + 7;
+                $bestVersion = $i + 7;
                 $bestDifference = $bitsDifference;
             }
         }
@@ -263,7 +264,7 @@ class Version
      */
     public function __toString()
     {
-        return (string) $this->versionNumber;
+        return (string)$this->versionNumber;
     }
 
     /**

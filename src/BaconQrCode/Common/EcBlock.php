@@ -39,7 +39,7 @@ class EcBlock
      */
     public function __construct($count, $dataCodewords)
     {
-        $this->count         = $count;
+        $this->count = $count;
         $this->dataCodewords = $dataCodewords;
     }
 

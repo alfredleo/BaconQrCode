@@ -38,7 +38,7 @@ class BlockPair
      */
     public function __construct(SplFixedArray $data, SplFixedArray $errorCorrection)
     {
-        $this->dataBytes            = $data;
+        $this->dataBytes = $data;
         $this->errorCorrectionBytes = $errorCorrection;
     }
 

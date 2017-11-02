@@ -30,7 +30,7 @@ class BitUtils
     public static function unsignedRightShift($a, $b)
     {
         return (
-            $a >= 0
+        $a >= 0
             ? $a >> $b
             : (($a & 0x7fffffff) >> $b) | (0x40000000 >> ($b - 1))
         );

@@ -110,7 +110,7 @@ class MaskUtilTest extends TestCase
     /**
      * @dataProvider dataMaskBitProvider
      * @param        integer $maskPattern
-     * @param        array   $expected
+     * @param        array $expected
      * @return       void
      */
     public function testGetDatMaskBit($maskPattern, array $expected)

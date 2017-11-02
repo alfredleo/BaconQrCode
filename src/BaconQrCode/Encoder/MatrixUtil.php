@@ -54,45 +54,45 @@ class MatrixUtil
      */
     protected static $positionAdjustmentPatternCoordinateTable = array(
         array(null, null, null, null, null, null, null), // Version 1
-        array(   6,   18, null, null, null, null, null), // Version 2
-        array(   6,   22, null, null, null, null, null), // Version 3
-        array(   6,   26, null, null, null, null, null), // Version 4
-        array(   6,   30, null, null, null, null, null), // Version 5
-        array(   6,   34, null, null, null, null, null), // Version 6
-        array(   6,   22,   38, null, null, null, null), // Version 7
-        array(   6,   24,   42, null, null, null, null), // Version 8
-        array(   6,   26,   46, null, null, null, null), // Version 9
-        array(   6,   28,   50, null, null, null, null), // Version 10
-        array(   6,   30,   54, null, null, null, null), // Version 11
-        array(   6,   32,   58, null, null, null, null), // Version 12
-        array(   6,   34,   62, null, null, null, null), // Version 13
-        array(   6,   26,   46,   66, null, null, null), // Version 14
-        array(   6,   26,   48,   70, null, null, null), // Version 15
-        array(   6,   26,   50,   74, null, null, null), // Version 16
-        array(   6,   30,   54,   78, null, null, null), // Version 17
-        array(   6,   30,   56,   82, null, null, null), // Version 18
-        array(   6,   30,   58,   86, null, null, null), // Version 19
-        array(   6,   34,   62,   90, null, null, null), // Version 20
-        array(   6,   28,   50,   72,   94, null, null), // Version 21
-        array(   6,   26,   50,   74,   98, null, null), // Version 22
-        array(   6,   30,   54,   78,  102, null, null), // Version 23
-        array(   6,   28,   54,   80,  106, null, null), // Version 24
-        array(   6,   32,   58,   84,  110, null, null), // Version 25
-        array(   6,   30,   58,   86,  114, null, null), // Version 26
-        array(   6,   34,   62,   90,  118, null, null), // Version 27
-        array(   6,   26,   50,   74,   98,  122, null), // Version 28
-        array(   6,   30,   54,   78,  102,  126, null), // Version 29
-        array(   6,   26,   52,   78,  104,  130, null), // Version 30
-        array(   6,   30,   56,   82,  108,  134, null), // Version 31
-        array(   6,   34,   60,   86,  112,  138, null), // Version 32
-        array(   6,   30,   58,   86,  114,  142, null), // Version 33
-        array(   6,   34,   62,   90,  118,  146, null), // Version 34
-        array(   6,   30,   54,   78,  102,  126,  150), // Version 35
-        array(   6,   24,   50,   76,  102,  128,  154), // Version 36
-        array(   6,   28,   54,   80,  106,  132,  158), // Version 37
-        array(   6,   32,   58,   84,  110,  136,  162), // Version 38
-        array(   6,   26,   54,   82,  110,  138,  166), // Version 39
-        array(   6,   30,   58,   86,  114,  142,  170), // Version 40
+        array(6, 18, null, null, null, null, null), // Version 2
+        array(6, 22, null, null, null, null, null), // Version 3
+        array(6, 26, null, null, null, null, null), // Version 4
+        array(6, 30, null, null, null, null, null), // Version 5
+        array(6, 34, null, null, null, null, null), // Version 6
+        array(6, 22, 38, null, null, null, null), // Version 7
+        array(6, 24, 42, null, null, null, null), // Version 8
+        array(6, 26, 46, null, null, null, null), // Version 9
+        array(6, 28, 50, null, null, null, null), // Version 10
+        array(6, 30, 54, null, null, null, null), // Version 11
+        array(6, 32, 58, null, null, null, null), // Version 12
+        array(6, 34, 62, null, null, null, null), // Version 13
+        array(6, 26, 46, 66, null, null, null), // Version 14
+        array(6, 26, 48, 70, null, null, null), // Version 15
+        array(6, 26, 50, 74, null, null, null), // Version 16
+        array(6, 30, 54, 78, null, null, null), // Version 17
+        array(6, 30, 56, 82, null, null, null), // Version 18
+        array(6, 30, 58, 86, null, null, null), // Version 19
+        array(6, 34, 62, 90, null, null, null), // Version 20
+        array(6, 28, 50, 72, 94, null, null), // Version 21
+        array(6, 26, 50, 74, 98, null, null), // Version 22
+        array(6, 30, 54, 78, 102, null, null), // Version 23
+        array(6, 28, 54, 80, 106, null, null), // Version 24
+        array(6, 32, 58, 84, 110, null, null), // Version 25
+        array(6, 30, 58, 86, 114, null, null), // Version 26
+        array(6, 34, 62, 90, 118, null, null), // Version 27
+        array(6, 26, 50, 74, 98, 122, null), // Version 28
+        array(6, 30, 54, 78, 102, 126, null), // Version 29
+        array(6, 26, 52, 78, 104, 130, null), // Version 30
+        array(6, 30, 56, 82, 108, 134, null), // Version 31
+        array(6, 34, 60, 86, 112, 138, null), // Version 32
+        array(6, 30, 58, 86, 114, 142, null), // Version 33
+        array(6, 34, 62, 90, 118, 146, null), // Version 34
+        array(6, 30, 54, 78, 102, 126, 150), // Version 35
+        array(6, 24, 50, 76, 102, 128, 154), // Version 36
+        array(6, 28, 54, 80, 106, 132, 158), // Version 37
+        array(6, 32, 58, 84, 110, 136, 162), // Version 38
+        array(6, 26, 54, 82, 110, 138, 166), // Version 39
+        array(6, 30, 58, 86, 114, 142, 170), // Version 40
     );
 
     /**
@@ -153,11 +153,11 @@ class MatrixUtil
     /**
      * Builds a complete matrix.
      *
-     * @param  BitArray             $dataBits
+     * @param  BitArray $dataBits
      * @param  ErrorCorrectionLevel $level
-     * @param  Version              $version
-     * @param  integer              $maskPattern
-     * @param  ByteMatrix           $matrix
+     * @param  Version $version
+     * @param  integer $maskPattern
+     * @param  ByteMatrix $matrix
      * @return void
      */
     public static function buildMatrix(
@@ -166,7 +166,8 @@ class MatrixUtil
         Version $version,
         $maskPattern,
         ByteMatrix $matrix
-    ) {
+    )
+    {
         self::clearMatrix($matrix);
         self::embedBasicPatterns($version, $matrix);
         self::embedTypeInfo($level, $maskPattern, $matrix);
@@ -178,8 +179,8 @@ class MatrixUtil
      * Embeds type information into a matrix.
      *
      * @param  ErrorCorrectionLevel $level
-     * @param  integer              $maskPattern
-     * @param  ByteMatrix           $matrix
+     * @param  integer $maskPattern
+     * @param  ByteMatrix $matrix
      * @return void
      */
     protected static function embedTypeInfo(ErrorCorrectionLevel $level, $maskPattern, ByteMatrix $matrix)
@@ -238,7 +239,7 @@ class MatrixUtil
     /**
      * Embeds version information if required.
      *
-     * @param  Version    $version
+     * @param  Version $version
      * @param  ByteMatrix $matrix
      * @return void
      */
@@ -267,7 +268,7 @@ class MatrixUtil
     /**
      * Generates version information bits and appends them to a bit array.
      *
-     * @param  Version  $version
+     * @param  Version $version
      * @param  BitArray $bits
      * @return void
      * @throws Exception\RuntimeException
@@ -293,8 +294,8 @@ class MatrixUtil
      */
     protected static function calculateBchCode($value, $poly)
     {
-        $msbSetInPoly   = self::findMsbSet($poly);
-        $value        <<= $msbSetInPoly - 1;
+        $msbSetInPoly = self::findMsbSet($poly);
+        $value <<= $msbSetInPoly - 1;
 
         while (self::findMsbSet($value) >= $msbSetInPoly) {
             $value ^= $poly << (self::findMsbSet($value) - $msbSetInPoly);
@@ -324,7 +325,7 @@ class MatrixUtil
     /**
      * Embeds basic patterns into a matrix.
      *
-     * @param  Version    $version
+     * @param  Version $version
      * @param  ByteMatrix $matrix
      * @return void
      */
@@ -366,8 +367,8 @@ class MatrixUtil
     /**
      * Embeds a single position detection pattern into a byte matrix.
      *
-     * @param  integer    $xStart
-     * @param  integer    $yStart
+     * @param  integer $xStart
+     * @param  integer $yStart
      * @param  ByteMatrix $matrix
      * @return void
      */
@@ -383,8 +384,8 @@ class MatrixUtil
     /**
      * Embeds a single horizontal separation pattern.
      *
-     * @param  integer    $xStart
-     * @param  integer    $yStart
+     * @param  integer $xStart
+     * @param  integer $yStart
      * @param  ByteMatrix $matrix
      * @return void
      * @throws Exception\RuntimeException
@@ -403,8 +404,8 @@ class MatrixUtil
     /**
      * Embeds a single vertical separation pattern.
      *
-     * @param  integer    $xStart
-     * @param  integer    $yStart
+     * @param  integer $xStart
+     * @param  integer $yStart
      * @param  ByteMatrix $matrix
      * @return void
      * @throws Exception\RuntimeException
@@ -439,7 +440,7 @@ class MatrixUtil
     /**
      * Embeds position adjustment patterns if required.
      *
-     * @param  Version    $version
+     * @param  Version $version
      * @param  ByteMatrix $matrix
      * @return void
      */
@@ -451,7 +452,7 @@ class MatrixUtil
 
         $index = $version->getVersionNumber() - 1;
 
-        $coordinates    = self::$positionAdjustmentPatternCoordinateTable[$index];
+        $coordinates = self::$positionAdjustmentPatternCoordinateTable[$index];
         $numCoordinates = count($coordinates);
 
         for ($i = 0; $i < $numCoordinates; $i++) {
@@ -473,8 +474,8 @@ class MatrixUtil
     /**
      * Embeds a single position adjustment pattern.
      *
-     * @param  integer    $xStart
-     * @param  intger     $yStart
+     * @param  integer $xStart
+     * @param  intger $yStart
      * @param  ByteMatrix $matrix
      * @return void
      */
@@ -516,15 +517,15 @@ class MatrixUtil
      *  For debugging purposes, it skips masking process if "getMaskPattern" is
      * -1. See 8.7 of JISX0510:2004 (p.38) for how to embed data bits.
      *
-     * @param  BitArray   $dataBits
-     * @param  integer    $maskPattern
+     * @param  BitArray $dataBits
+     * @param  integer $maskPattern
      * @param  ByteMatrix $matrix
      * @return void
      * @throws Exception\WriterException
      */
     protected static function embedDataBits(BitArray $dataBits, $maskPattern, ByteMatrix $matrix)
     {
-        $bitIndex  = 0;
+        $bitIndex = 0;
         $direction = -1;
 
         // Start from the right bottom cell.
@@ -567,14 +568,14 @@ class MatrixUtil
                 $y += $direction;
             }
 
-            $direction  = -$direction;
-            $y         += $direction;
-            $x         -= 2;
+            $direction = -$direction;
+            $y += $direction;
+            $x -= 2;
         }
 
         // All bits should be consumed
         if ($bitIndex !== $dataBits->getSize()) {
-            throw new Exception\WriterException('Not all bits consumed (' . $bitIndex . ' out of ' . $dataBits->getSize() .')');
+            throw new Exception\WriterException('Not all bits consumed (' . $bitIndex . ' out of ' . $dataBits->getSize() . ')');
         }
     }
 }

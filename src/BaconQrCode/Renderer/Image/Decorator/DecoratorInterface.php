@@ -20,13 +20,13 @@ interface DecoratorInterface
     /**
      * Pre-process a QR code.
      *
-     * @param  QrCode            $qrCode
+     * @param  QrCode $qrCode
      * @param  RendererInterface $renderer
-     * @param  integer           $outputWidth
-     * @param  integer           $outputHeight
-     * @param  integer           $leftPadding
-     * @param  integer           $topPadding
-     * @param  integer           $multiple
+     * @param  integer $outputWidth
+     * @param  integer $outputHeight
+     * @param  integer $leftPadding
+     * @param  integer $topPadding
+     * @param  integer $multiple
      * @return void
      */
     public function preProcess(
@@ -42,13 +42,13 @@ interface DecoratorInterface
     /**
      * Post-process a QR code.
      *
-     * @param  QrCode            $qrCode
+     * @param  QrCode $qrCode
      * @param  RendererInterface $renderer
-     * @param  integer           $outputWidth
-     * @param  integer           $outputHeight
-     * @param  integer           $leftPadding
-     * @param  integer           $topPadding
-     * @param  integer           $multiple
+     * @param  integer $outputWidth
+     * @param  integer $outputHeight
+     * @param  integer $leftPadding
+     * @param  integer $topPadding
+     * @param  integer $multiple
      * @return void
      */
     public function postProcess(

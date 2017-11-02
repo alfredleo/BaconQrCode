@@ -49,15 +49,15 @@ class Eps extends AbstractRenderer
     public function init()
     {
         $this->eps = "%!PS-Adobe-3.0 EPSF-3.0\n"
-                   . "%%BoundingBox: 0 0 " . $this->finalWidth . " " . $this->finalHeight . "\n"
-                   . "/F { rectfill } def\n";
+            . "%%BoundingBox: 0 0 " . $this->finalWidth . " " . $this->finalHeight . "\n"
+            . "/F { rectfill } def\n";
     }
 
     /**
      * addColor(): defined by RendererInterface.
      *
      * @see    ImageRendererInterface::addColor()
-     * @param  string         $id
+     * @param  string $id
      * @param  ColorInterface $color
      * @return void
      */
@@ -93,7 +93,7 @@ class Eps extends AbstractRenderer
      * @see    ImageRendererInterface::drawBlock()
      * @param  integer $x
      * @param  integer $y
-     * @param  string  $colorId
+     * @param  string $colorId
      * @return void
      */
     public function drawBlock($x, $y, $colorId)

@@ -182,10 +182,10 @@ class QrCode
     public function __toString()
     {
         $result = "<<\n"
-                . " mode: " . $this->mode . "\n"
-                . " ecLevel: " . $this->errorCorrectionLevel . "\n"
-                . " version: " . $this->version . "\n"
-                . " maskPattern: " . $this->maskPattern . "\n";
+            . " mode: " . $this->mode . "\n"
+            . " ecLevel: " . $this->errorCorrectionLevel . "\n"
+            . " version: " . $this->version . "\n"
+            . " maskPattern: " . $this->maskPattern . "\n";
 
         if ($this->matrix === null) {
             $result .= " matrix: null\n";

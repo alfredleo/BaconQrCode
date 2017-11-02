@@ -90,7 +90,7 @@ class FormatInformation
      */
     protected function __construct($formatInfo)
     {
-        $this->ecLevel  = new ErrorCorrectionLevel(($formatInfo >> 3) & 0x3);
+        $this->ecLevel = new ErrorCorrectionLevel(($formatInfo >> 3) & 0x3);
         $this->dataMask = $formatInfo & 0x7;
     }
 
@@ -223,7 +223,8 @@ class FormatInformation
      * @param  mixed $other
      * @return boolean
      */
-    public function equals($other) {
+    public function equals($other)
+    {
         if (!$other instanceof self) {
             return false;
         }

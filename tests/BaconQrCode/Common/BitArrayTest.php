@@ -101,7 +101,7 @@ class BitArrayTest extends TestCase
         }
 
         for ($i = 0; $i < 10; $i++) {
-            $array  = new BitArray(mt_rand(1, 100));
+            $array = new BitArray(mt_rand(1, 100));
             $numSet = mt_rand(0, 19);
 
             for ($j = 0; $j < $numSet; $j++) {
@@ -111,7 +111,7 @@ class BitArrayTest extends TestCase
             $numQueries = mt_rand(0, 19);
 
             for ($j = 0; $j < $numQueries; $j++) {
-                $query    = mt_rand(0, $array->getSize() - 1);
+                $query = mt_rand(0, $array->getSize() - 1);
                 $expected = $query;
 
                 while ($expected < $array->getSize() && !$array->get($expected)) {

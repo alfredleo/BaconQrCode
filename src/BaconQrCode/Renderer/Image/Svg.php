@@ -62,14 +62,14 @@ class Svg extends AbstractRenderer
      * addColor(): defined by RendererInterface.
      *
      * @see    ImageRendererInterface::addColor()
-     * @param  string         $id
+     * @param  string $id
      * @param  ColorInterface $color
      * @return void
      * @throws Exception\InvalidArgumentException
      */
     public function addColor($id, ColorInterface $color)
     {
-        $this->colors[$id] = (string) $color->toRgb();
+        $this->colors[$id] = (string)$color->toRgb();
     }
 
     /**
@@ -95,7 +95,7 @@ class Svg extends AbstractRenderer
      * @see    ImageRendererInterface::drawBlock()
      * @param  integer $x
      * @param  integer $y
-     * @param  string  $colorId
+     * @param  string $colorId
      * @return void
      */
     public function drawBlock($x, $y, $colorId)

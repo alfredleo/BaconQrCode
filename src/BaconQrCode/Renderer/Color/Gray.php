@@ -36,7 +36,7 @@ class Gray implements ColorInterface
             throw new Exception\InvalidArgumentException('Gray must be between 0 and 100');
         }
 
-        $this->gray = (int) $gray;
+        $this->gray = (int)$gray;
     }
 
     /**

@@ -17,12 +17,12 @@ class ReedSolomonTest extends TestCase
     public static function tabProvider()
     {
         return array(
-            array(2, 0x7,   1, 1, 1),
-            array(3, 0xb,   1, 1, 2),
-            array(4, 0x13,  1, 1, 4),
-            array(5, 0x25,  1, 1, 6),
-            array(6, 0x43,  1, 1, 8),
-            array(7, 0x89,  1, 1, 10),
+            array(2, 0x7, 1, 1, 1),
+            array(3, 0xb, 1, 1, 2),
+            array(4, 0x13, 1, 1, 4),
+            array(5, 0x25, 1, 1, 6),
+            array(6, 0x43, 1, 1, 8),
+            array(7, 0x89, 1, 1, 10),
             array(8, 0x11d, 1, 1, 32),
         );
     }
@@ -45,8 +45,8 @@ class ReedSolomonTest extends TestCase
         }
 
         $blockSize = (1 << $symbolSize) - 1;
-        $dataSize  = $blockSize - $numRoots;
-        $codec     = new ReedSolomonCodec($symbolSize, $generatorPoly, $firstRoot, $primitive, $numRoots, 0);
+        $dataSize = $blockSize - $numRoots;
+        $codec = new ReedSolomonCodec($symbolSize, $generatorPoly, $firstRoot, $primitive, $numRoots, 0);
 
         for ($errors = 0; $errors <= $numRoots / 2; $errors++) {
             // Load block with random data and encode
@@ -57,10 +57,10 @@ class ReedSolomonTest extends TestCase
             }
 
             // Make temporary copy
-            $tBlock         = clone $block;
-            $parity         = SplFixedArray::fromArray(array_fill(0, $numRoots, 0), false);
+            $tBlock = clone $block;
+            $parity = SplFixedArray::fromArray(array_fill(0, $numRoots, 0), false);
             $errorLocations = SplFixedArray::fromArray(array_fill(0, $blockSize, 0), false);
-            $erasures       = array();
+            $erasures = array();
 
             // Create parity
             $codec->encode($block, $parity);

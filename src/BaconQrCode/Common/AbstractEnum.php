@@ -46,7 +46,7 @@ abstract class AbstractEnum
     /**
      * Creates a new enum.
      *
-     * @param mixed   $initialValue
+     * @param mixed $initialValue
      * @param boolean $strict
      */
     public function __construct($initialValue = null, $strict = false)
@@ -89,7 +89,7 @@ abstract class AbstractEnum
     public function getConstList($includeDefault = true)
     {
         if ($this->constants === null) {
-            $reflection      = new ReflectionClass($this);
+            $reflection = new ReflectionClass($this);
             $this->constants = $reflection->getConstants();
         }
 

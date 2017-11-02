@@ -70,10 +70,10 @@ class Cmyk implements ColorInterface
             throw new Exception\InvalidArgumentException('Black must be between 0 and 100');
         }
 
-        $this->cyan    = (int) $cyan;
-        $this->magenta = (int) $magenta;
-        $this->yellow  = (int) $yellow;
-        $this->black   = (int) $black;
+        $this->cyan = (int)$cyan;
+        $this->magenta = (int)$magenta;
+        $this->yellow = (int)$yellow;
+        $this->black = (int)$black;
     }
 
     /**

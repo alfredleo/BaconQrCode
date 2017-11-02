@@ -56,9 +56,9 @@ class MaskUtil
     public static function applyMaskPenaltyRule2(ByteMatrix $matrix)
     {
         $penalty = 0;
-        $array   = $matrix->getArray();
-        $width   = $matrix->getWidth();
-        $height  = $matrix->getHeight();
+        $array = $matrix->getArray();
+        $width = $matrix->getWidth();
+        $height = $matrix->getHeight();
 
         for ($y = 0; $y < $height - 1; $y++) {
             for ($x = 0; $x < $width - 1; $x++) {
@@ -86,9 +86,9 @@ class MaskUtil
     public static function applyMaskPenaltyRule3(ByteMatrix $matrix)
     {
         $penalty = 0;
-        $array   = $matrix->getArray();
-        $width   = $matrix->getWidth();
-        $height  = $matrix->getHeight();
+        $array = $matrix->getArray();
+        $width = $matrix->getWidth();
+        $height = $matrix->getHeight();
 
         for ($y = 0; $y < $height; $y++) {
             for ($x = 0; $x < $width; $x++) {
@@ -168,8 +168,8 @@ class MaskUtil
     {
         $numDarkCells = 0;
 
-        $array  = $matrix->getArray();
-        $width  = $matrix->getWidth();
+        $array = $matrix->getArray();
+        $width = $matrix->getWidth();
         $height = $matrix->getHeight();
 
         for ($y = 0; $y < $height; $y++) {
@@ -182,9 +182,9 @@ class MaskUtil
             }
         }
 
-        $numTotalCells         = $height * $width;
-        $darkRatio             = $numDarkCells / $numTotalCells;
-        $fixedPercentVariances = (int) (abs($darkRatio - 0.5) * 20);
+        $numTotalCells = $height * $width;
+        $darkRatio = $numDarkCells / $numTotalCells;
+        $fixedPercentVariances = (int)(abs($darkRatio - 0.5) * 20);
 
         return $fixedPercentVariances * self::N4;
     }
@@ -224,17 +224,17 @@ class MaskUtil
                 break;
 
             case 5:
-                $temp         = $y * $x;
+                $temp = $y * $x;
                 $intermediate = ($temp & 0x1) + ($temp % 3);
                 break;
 
             case 6:
-                $temp         = $y * $x;
+                $temp = $y * $x;
                 $intermediate = (($temp & 0x1) + ($temp % 3)) & 0x1;
                 break;
 
             case 7:
-                $temp         = $y * $x;
+                $temp = $y * $x;
                 $intermediate = (($temp % 3) + (($y + $x) & 0x1)) & 0x1;
                 break;
 
@@ -252,19 +252,19 @@ class MaskUtil
      * orders respectively.
      *
      * @param  ByteMatrix $matrix
-     * @param  boolean    $isHorizontal
+     * @param  boolean $isHorizontal
      * @return integer
      */
     protected static function applyMaskPenaltyRule1Internal(ByteMatrix $matrix, $isHorizontal)
     {
         $penalty = 0;
-        $iLimit  = $isHorizontal ? $matrix->getHeight() : $matrix->getWidth();
-        $jLimit  = $isHorizontal ? $matrix->getWidth() : $matrix->getHeight();
-        $array   = $matrix->getArray();
+        $iLimit = $isHorizontal ? $matrix->getHeight() : $matrix->getWidth();
+        $jLimit = $isHorizontal ? $matrix->getWidth() : $matrix->getHeight();
+        $array = $matrix->getArray();
 
         for ($i = 0; $i < $iLimit; $i++) {
             $numSameBitCells = 0;
-            $prevBit         = -1;
+            $prevBit = -1;
 
             for ($j = 0; $j < $jLimit; $j++) {
                 $bit = $isHorizontal ? $array[$i][$j] : $array[$j][$i];
@@ -277,7 +277,7 @@ class MaskUtil
                     }
 
                     $numSameBitCells = 1;
-                    $prevBit         = $bit;
+                    $prevBit = $bit;
                 }
             }
 

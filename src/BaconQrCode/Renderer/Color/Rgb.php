@@ -58,9 +58,9 @@ class Rgb implements ColorInterface
             throw new Exception\InvalidArgumentException('Blue must be between 0 and 255');
         }
 
-        $this->red   = (int) $red;
-        $this->green = (int) $green;
-        $this->blue  = (int) $blue;
+        $this->red = (int)$red;
+        $this->green = (int)$green;
+        $this->blue = (int)$blue;
     }
 
     /**

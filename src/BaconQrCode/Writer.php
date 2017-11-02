@@ -64,8 +64,8 @@ class Writer
      * Content is a string which *should* be encoded in UTF-8, in case there are
      * non ASCII-characters present.
      *
-     * @param  string  $content
-     * @param  string  $encoding
+     * @param  string $content
+     * @param  string $encoding
      * @param  integer $ecLevel
      * @return string
      * @throws Exception\InvalidArgumentException
@@ -74,7 +74,8 @@ class Writer
         $content,
         $encoding = Encoder::DEFAULT_BYTE_MODE_ECODING,
         $ecLevel = ErrorCorrectionLevel::L
-    ) {
+    )
+    {
         if (strlen($content) === 0) {
             throw new Exception\InvalidArgumentException('Found empty contents');
         }
@@ -88,9 +89,9 @@ class Writer
      * Writes QR code to a file.
      *
      * @see    Writer::writeString()
-     * @param  string  $content
-     * @param  string  $filename
-     * @param  string  $encoding
+     * @param  string $content
+     * @param  string $filename
+     * @param  string $encoding
      * @param  integer $ecLevel
      * @return void
      */
@@ -99,7 +100,8 @@ class Writer
         $filename,
         $encoding = Encoder::DEFAULT_BYTE_MODE_ECODING,
         $ecLevel = ErrorCorrectionLevel::L
-    ) {
+    )
+    {
         file_put_contents($filename, $this->writeString($content, $encoding, $ecLevel));
     }
 }

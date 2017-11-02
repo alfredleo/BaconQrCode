@@ -82,9 +82,9 @@ class Html extends Plain
         $textCode = parent::render($qrCode);
 
         $result = '<pre'
-                . ' style="' . htmlspecialchars($this->style, ENT_QUOTES, 'utf-8') . '"'
-                . ' class="' . htmlspecialchars($this->class, ENT_QUOTES, 'utf-8') . '"'
-                . '>' . $textCode . '</pre>';
+            . ' style="' . htmlspecialchars($this->style, ENT_QUOTES, 'utf-8') . '"'
+            . ' class="' . htmlspecialchars($this->class, ENT_QUOTES, 'utf-8') . '"'
+            . '>' . $textCode . '</pre>';
 
         return $result;
     }

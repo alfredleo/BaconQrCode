@@ -120,20 +120,20 @@ class ReedSolomonCodec
         }
 
         $this->symbolSize = $symbolSize;
-        $this->blockSize  = (1 << $symbolSize) - 1;
-        $this->padding    = $padding;
-        $this->alphaTo    = SplFixedArray::fromArray(array_fill(0, $this->blockSize + 1, 0), false);
-        $this->indexOf    = SplFixedArray::fromArray(array_fill(0, $this->blockSize + 1, 0), false);
+        $this->blockSize = (1 << $symbolSize) - 1;
+        $this->padding = $padding;
+        $this->alphaTo = SplFixedArray::fromArray(array_fill(0, $this->blockSize + 1, 0), false);
+        $this->indexOf = SplFixedArray::fromArray(array_fill(0, $this->blockSize + 1, 0), false);
 
         // Generate galous field lookup table
-        $this->indexOf[0]                = $this->blockSize;
+        $this->indexOf[0] = $this->blockSize;
         $this->alphaTo[$this->blockSize] = 0;
 
         $sr = 1;
 
         for ($i = 0; $i < $this->blockSize; $i++) {
             $this->indexOf[$sr] = $i;
-            $this->alphaTo[$i]  = $sr;
+            $this->alphaTo[$i] = $sr;
 
             $sr <<= 1;
 
@@ -150,12 +150,12 @@ class ReedSolomonCodec
 
         // Form RS code generator polynomial from its roots
         $this->generatorPoly = SplFixedArray::fromArray(array_fill(0, $numRoots + 1, 0), false);
-        $this->firstRoot     = $firstRoot;
-        $this->primitive     = $primitive;
-        $this->numRoots      = $numRoots;
+        $this->firstRoot = $firstRoot;
+        $this->primitive = $primitive;
+        $this->numRoots = $numRoots;
 
         // Find prim-th root of 1, used in decoding
-        for ($iPrimitive = 1; ($iPrimitive % $primitive) !== 0; $iPrimitive += $this->blockSize);
+        for ($iPrimitive = 1; ($iPrimitive % $primitive) !== 0; $iPrimitive += $this->blockSize) ;
         $this->iPrimitive = intval($iPrimitive / $primitive);
 
         $this->generatorPoly[0] = 1;
@@ -222,7 +222,7 @@ class ReedSolomonCodec
     /**
      * Decodes received data.
      *
-     * @param  SplFixedArray      $data
+     * @param  SplFixedArray $data
      * @param  SplFixedArray|null $erasures
      * @return null|integer
      */
@@ -230,14 +230,14 @@ class ReedSolomonCodec
     {
         // This speeds up the initialization a bit.
         $numRootsPlusOne = SplFixedArray::fromArray(array_fill(0, $this->numRoots + 1, 0), false);
-        $numRoots        = SplFixedArray::fromArray(array_fill(0, $this->numRoots, 0), false);
+        $numRoots = SplFixedArray::fromArray(array_fill(0, $this->numRoots, 0), false);
 
-        $lambda    = clone $numRootsPlusOne;
-        $b         = clone $numRootsPlusOne;
-        $t         = clone $numRootsPlusOne;
-        $omega     = clone $numRootsPlusOne;
-        $root      = clone $numRoots;
-        $loc       = clone $numRoots;
+        $lambda = clone $numRootsPlusOne;
+        $b = clone $numRootsPlusOne;
+        $t = clone $numRootsPlusOne;
+        $omega = clone $numRootsPlusOne;
+        $root = clone $numRoots;
+        $loc = clone $numRoots;
 
         $numErasures = ($erasures !== null ? count($erasures) : 0);
 
@@ -249,9 +249,7 @@ class ReedSolomonCodec
                 if ($syndromes[$j] === 0) {
                     $syndromes[$j] = $data[$i];
                 } else {
-                    $syndromes[$j] = $data[$i] ^ $this->alphaTo[
-                        $this->modNn($this->indexOf[$syndromes[$j]] + ($this->firstRoot + $j) * $this->primitive)
-                    ];
+                    $syndromes[$j] = $data[$i] ^ $this->alphaTo[$this->modNn($this->indexOf[$syndromes[$j]] + ($this->firstRoot + $j) * $this->primitive)];
                 }
             }
         }
@@ -261,7 +259,7 @@ class ReedSolomonCodec
 
         for ($i = 0; $i < $this->numRoots; $i++) {
             $syndromeError |= $syndromes[$i];
-            $syndromes[$i]  = $this->indexOf[$syndromes[$i]];
+            $syndromes[$i] = $this->indexOf[$syndromes[$i]];
         }
 
         if (!$syndromeError) {
@@ -295,7 +293,7 @@ class ReedSolomonCodec
 
         // Begin Berlekamp-Massey algorithm to determine error+erasure locator
         // polynomial
-        $r  = $numErasures;
+        $r = $numErasures;
         $el = $numErasures;
 
         while (++$r <= $this->numRoots) {
@@ -331,7 +329,7 @@ class ReedSolomonCodec
 
                     for ($i = 0; $i <= $this->numRoots; $i++) {
                         $b[$i] = (
-                            $lambda[$i] === 0
+                        $lambda[$i] === 0
                             ? $this->blockSize
                             : $this->modNn($this->indexOf[$lambda[$i]] - $discrepancyR + $this->blockSize)
                         );
@@ -359,17 +357,17 @@ class ReedSolomonCodec
         }
 
         // Find roots of the error+erasure locator polynomial by Chien search.
-        $reg    = clone $lambda;
+        $reg = clone $lambda;
         $reg[0] = 0;
-        $count  = 0;
+        $count = 0;
 
         for ($i = 1, $k = $this->iPrimitive - 1; $i <= $this->blockSize; $i++, $k = $this->modNn($k + $this->iPrimitive)) {
             $q = 1;
 
             for ($j = $degLambda; $j > 0; $j--) {
                 if ($reg[$j] !== $this->blockSize) {
-                    $reg[$j]  = $this->modNn($reg[$j] + $j);
-                    $q       ^= $this->alphaTo[$reg[$j]];
+                    $reg[$j] = $this->modNn($reg[$j] + $j);
+                    $q ^= $this->alphaTo[$reg[$j]];
                 }
             }
 
@@ -380,7 +378,7 @@ class ReedSolomonCodec
 
             // Store root (index-form) and error location number
             $root[$count] = $i;
-            $loc[$count]  = $k;
+            $loc[$count] = $k;
 
             if (++$count === $degLambda) {
                 break;
@@ -422,7 +420,7 @@ class ReedSolomonCodec
             }
 
             $num2 = $this->alphaTo[$this->modNn($root[$j] * ($this->firstRoot - 1) + $this->blockSize)];
-            $den  = 0;
+            $den = 0;
 
             // lambda[i+1] for i even is the formal derivativelambda_pr of
             // lambda[i]
@@ -435,12 +433,10 @@ class ReedSolomonCodec
             // Apply error to data
             if ($num1 !== 0 && $loc[$j] >= $this->padding) {
                 $data[$loc[$j] - $this->padding] = $data[$loc[$j] - $this->padding] ^ (
-                    $this->alphaTo[
-                        $this->modNn(
-                            $this->indexOf[$num1] + $this->indexOf[$num2] + $this->blockSize - $this->indexOf[$den]
-                        )
-                    ]
-                );
+                    $this->alphaTo[$this->modNn(
+                        $this->indexOf[$num1] + $this->indexOf[$num2] + $this->blockSize - $this->indexOf[$den]
+                    )]
+                    );
             }
         }
 
@@ -468,7 +464,7 @@ class ReedSolomonCodec
     {
         while ($x >= $this->blockSize) {
             $x -= $this->blockSize;
-            $x  = ($x >> $this->symbolSize) + ($x & $this->blockSize);
+            $x = ($x >> $this->symbolSize) + ($x & $this->blockSize);
         }
 
         return $x;
