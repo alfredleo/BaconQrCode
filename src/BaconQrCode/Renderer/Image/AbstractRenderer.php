@@ -77,7 +77,7 @@ abstract class AbstractRenderer implements RendererInterface
 
     /**
      * Whether dimensions should be rounded down
-     * 
+     *
      * @var boolean
      */
     protected $floorToClosestDimension;
@@ -109,7 +109,7 @@ abstract class AbstractRenderer implements RendererInterface
             throw new Exception\InvalidArgumentException('Margin must be equal to greater than 0');
         }
 
-        $this->margin = (int) $margin;
+        $this->margin = (int)$margin;
         return $this;
     }
 
@@ -134,7 +134,7 @@ abstract class AbstractRenderer implements RendererInterface
      */
     public function setWidth($width)
     {
-        $this->width = (int) $width;
+        $this->width = (int)$width;
         return $this;
     }
 
@@ -160,7 +160,7 @@ abstract class AbstractRenderer implements RendererInterface
      */
     public function setHeight($height)
     {
-        $this->height = (int) $height;
+        $this->height = (int)$height;
         return $this;
     }
 
@@ -269,17 +269,17 @@ abstract class AbstractRenderer implements RendererInterface
      */
     public function render(QrCode $qrCode)
     {
-        $input        = $qrCode->getMatrix();
-        $inputWidth   = $input->getWidth();
-        $inputHeight  = $input->getHeight();
-        $qrWidth      = $inputWidth + ($this->getMargin() << 1);
-        $qrHeight     = $inputHeight + ($this->getMargin() << 1);
-        $outputWidth  = max($this->getWidth(), $qrWidth);
+        $input = $qrCode->getMatrix();
+        $inputWidth = $input->getWidth();
+        $inputHeight = $input->getHeight();
+        $qrWidth = $inputWidth + ($this->getMargin() << 1);
+        $qrHeight = $inputHeight + ($this->getMargin() << 1);
+        $outputWidth = max($this->getWidth(), $qrWidth);
         $outputHeight = max($this->getHeight(), $qrHeight);
-        $multiple     = (int) min($outputWidth / $qrWidth, $outputHeight / $qrHeight);
+        $multiple = (int)min($outputWidth / $qrWidth, $outputHeight / $qrHeight);
 
         if ($this->shouldRoundDimensions()) {
-            $outputWidth  -= $outputWidth % $multiple;
+            $outputWidth -= $outputWidth % $multiple;
             $outputHeight -= $outputHeight % $multiple;
         }
 
@@ -288,13 +288,13 @@ abstract class AbstractRenderer implements RendererInterface
         // the QR will be 33x33 including the quiet zone. If the requested size
         // is 200x160, the multiple will be 4, for a QR of 132x132. These will
         // handle all the padding from 100x100 (the actual QR) up to 200x160.
-        $leftPadding = (int) (($outputWidth - ($inputWidth * $multiple)) / 2);
-        $topPadding  = (int) (($outputHeight - ($inputHeight * $multiple)) / 2);
+        $leftPadding = (int)(($outputWidth - ($inputWidth * $multiple)) / 2);
+        $topPadding = (int)(($outputHeight - ($inputHeight * $multiple)) / 2);
 
         // Store calculated parameters
-        $this->finalWidth  = $outputWidth;
+        $this->finalWidth = $outputWidth;
         $this->finalHeight = $outputHeight;
-        $this->blockSize   = $multiple;
+        $this->blockSize = $multiple;
 
         $this->init();
         $this->addColor('background', $this->getBackgroundColor());
@@ -313,9 +313,17 @@ abstract class AbstractRenderer implements RendererInterface
             );
         }
 
+        $size = $input->getWidth();
+        $mainSquares = [[3, 3], [3, $size - 4], [$size - 4, 3]];
+        // Main rendering routine.
+        dumppp($input->getWidth());
+        dumppp($input->getHeight());
         for ($inputY = 0, $outputY = $topPadding; $inputY < $inputHeight; $inputY++, $outputY += $multiple) {
             for ($inputX = 0, $outputX = $leftPadding; $inputX < $inputWidth; $inputX++, $outputX += $multiple) {
+                // here we removing 7x7 3 Pisition squares.
                 if ($input->get($inputX, $inputY) === 1) {
+
+                    dumppp($inputX . '-' . $inputY . ', ' . $outputX . '-' . $outputY);
                     $this->drawBlock($outputX, $outputY, 'foreground');
                 }
             }

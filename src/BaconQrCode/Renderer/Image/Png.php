@@ -116,7 +116,7 @@ class Png extends AbstractRenderer
     public function drawEllipse($x, $y, $colorId)
     {
         $img = $this->image;
-        $radius = ($this->blockSize - 1) / 1.38;
+        $radius = ($this->blockSize - 1) / 1.1;
         $cx = $x + $radius;
         $cy = $y + $radius;
         $fillColor = $this->colors[$colorId];
