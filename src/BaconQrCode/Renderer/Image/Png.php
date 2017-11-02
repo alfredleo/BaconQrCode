@@ -116,7 +116,7 @@ class Png extends AbstractRenderer
     public function drawEllipse($x, $y, $colorId)
     {
         $img = $this->image;
-        $radius = ($this->blockSize - 1) / 2;
+        $radius = ($this->blockSize - 1) / 1.38;
         $cx = $x + $radius;
         $cy = $y + $radius;
         $fillColor = $this->colors[$colorId];
@@ -130,63 +130,7 @@ class Png extends AbstractRenderer
             $fillColor
         );*/
 
-        imageSmoothArc($img, $cx, $cy, $radius, $radius, $fillColor, 0, pi() * 2);
-        //        $this->imageSmoothCircle($img, $cx, $cy, $radius, $fillColor);
-    }
-
-    public function imageSmoothCircle(&$img, $cx, $cy, $cr, $color)
-    {
-        $ir = $cr;
-        $ix = 0;
-        $iy = $ir;
-        $ig = 2 * $ir - 3;
-        $idgr = -6;
-        $idgd = 4 * $ir - 10;
-        $fill = imageColorExactAlpha($img, $color['R'], $color['G'], $color['B'], 0);
-        imageLine($img, $cx + $cr - 1, $cy, $cx, $cy, $fill);
-        imageLine($img, $cx - $cr + 1, $cy, $cx - 1, $cy, $fill);
-        imageLine($img, $cx, $cy + $cr - 1, $cx, $cy + 1, $fill);
-        imageLine($img, $cx, $cy - $cr + 1, $cx, $cy - 1, $fill);
-        $draw = imageColorExactAlpha($img, $color['R'], $color['G'], $color['B'], 42);
-        imageSetPixel($img, $cx + $cr, $cy, $draw);
-        imageSetPixel($img, $cx - $cr, $cy, $draw);
-        imageSetPixel($img, $cx, $cy + $cr, $draw);
-        imageSetPixel($img, $cx, $cy - $cr, $draw);
-        while ($ix <= $iy - 2) {
-            if ($ig < 0) {
-                $ig += $idgd;
-                $idgd -= 8;
-                $iy--;
-            } else {
-                $ig += $idgr;
-                $idgd -= 4;
-            }
-            $idgr -= 4;
-            $ix++;
-            imageLine($img, $cx + $ix, $cy + $iy - 1, $cx + $ix, $cy + $ix, $fill);
-            imageLine($img, $cx + $ix, $cy - $iy + 1, $cx + $ix, $cy - $ix, $fill);
-            imageLine($img, $cx - $ix, $cy + $iy - 1, $cx - $ix, $cy + $ix, $fill);
-            imageLine($img, $cx - $ix, $cy - $iy + 1, $cx - $ix, $cy - $ix, $fill);
-            imageLine($img, $cx + $iy - 1, $cy + $ix, $cx + $ix, $cy + $ix, $fill);
-            imageLine($img, $cx + $iy - 1, $cy - $ix, $cx + $ix, $cy - $ix, $fill);
-            imageLine($img, $cx - $iy + 1, $cy + $ix, $cx - $ix, $cy + $ix, $fill);
-            imageLine($img, $cx - $iy + 1, $cy - $ix, $cx - $ix, $cy - $ix, $fill);
-            $filled = 0;
-            for ($xx = $ix - 0.45; $xx < $ix + 0.5; $xx += 0.2) {
-                for ($yy = $iy - 0.45; $yy < $iy + 0.5; $yy += 0.2) {
-                    if (sqrt(pow($xx, 2) + pow($yy, 2)) < $cr) $filled += 4;
-                }
-            }
-            $draw = imageColorExactAlpha($img, $color['R'], $color['G'], $color['B'], (100 - $filled));
-            imageSetPixel($img, $cx + $ix, $cy + $iy, $draw);
-            imageSetPixel($img, $cx + $ix, $cy - $iy, $draw);
-            imageSetPixel($img, $cx - $ix, $cy + $iy, $draw);
-            imageSetPixel($img, $cx - $ix, $cy - $iy, $draw);
-            imageSetPixel($img, $cx + $iy, $cy + $ix, $draw);
-            imageSetPixel($img, $cx + $iy, $cy - $ix, $draw);
-            imageSetPixel($img, $cx - $iy, $cy + $ix, $draw);
-            imageSetPixel($img, $cx - $iy, $cy - $ix, $draw);
-        }
+        imageSmoothArc($img, $cx, $cy, $radius, $radius, $fillColor, 0, pi()*2);
     }
 
     /**
