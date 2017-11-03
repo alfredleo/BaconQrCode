@@ -121,7 +121,8 @@ class Png extends AbstractRenderer
         $cy = $y + $radius;
         $fillColor = $this->colors[$colorId];
 
-        imageSmoothArc($img, $cx, $cy, $radius * $radiusSize, $radius * $radiusSize, $this->getRandomDarkColor(), pi() * 0.1, pi() * 1.9);
+        imageSmoothArc($img, $cx, $cy, $radius * $radiusSize, $radius * $radiusSize,
+            $this->getRandomDarkColor(), pi() * 0.1, pi() * 1.9);
     }
 
 
@@ -132,6 +133,7 @@ class Png extends AbstractRenderer
      * @param  integer $x
      * @param  integer $y
      * @param  string $colorId
+     * @param int $radiusSize
      * @return void
      */
     public function drawMainCircle($x, $y, $colorId, $radiusSize = 6)
@@ -141,9 +143,12 @@ class Png extends AbstractRenderer
         $cx = $x + $radius;
         $cy = $y + $radius;
 
-        imageSmoothArc($img, $cx, $cy, $radius * $radiusSize * 2.5, $radius * $radiusSize * 2.5, [0, 0, 0, 1], 0, pi() * 2);
-        imageSmoothArc($img, $cx, $cy, $radius * $radiusSize * 1.8, $radius * $radiusSize * 1.8, [255, 255, 255, 1], 0, pi() * 2);
-        imageSmoothArc($img, $cx, $cy, $radius * $radiusSize * 1.1, $radius * $radiusSize * 1.1, [150, 109, 5, 1], 0, pi() * 2);
+        imageSmoothArc($img, $cx, $cy, $radius * $radiusSize * 2.5, $radius * $radiusSize * 2.5,
+            [0, 0, 0, 1], 0, pi() * 2);
+        imageSmoothArc($img, $cx, $cy, $radius * $radiusSize * 1.8, $radius * $radiusSize * 1.8
+            , [255, 255, 255, 1], 0, pi() * 2);
+        imageSmoothArc($img, $cx, $cy, $radius * $radiusSize * 1.1, $radius * $radiusSize * 1.1,
+            [150, 109, 5, 1], 0, pi() * 2);
     }
 
     /**
