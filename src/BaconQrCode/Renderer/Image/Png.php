@@ -113,14 +113,15 @@ class Png extends AbstractRenderer
      * @param  string $colorId
      * @return void
      */
-    public function drawEllipse($x, $y, $colorId, $radiusSize = 1.8)
+    public function drawEllipse($x, $y, $colorId, $radiusSize = 1.82)
     {
         $img = $this->image;
         $radius = ($this->blockSize - 1) / 2;
         $cx = $x + $radius;
         $cy = $y + $radius;
         $fillColor = $this->colors[$colorId];
-        imageSmoothArc($img, $cx, $cy, $radius * $radiusSize, $radius * $radiusSize, $fillColor, 0, pi() * 2);
+        
+        imageSmoothArc($img, $cx, $cy, $radius * $radiusSize, $radius * $radiusSize, $fillColor, 0, pi() * 1.95);
     }
 
 
@@ -133,16 +134,16 @@ class Png extends AbstractRenderer
      * @param  string $colorId
      * @return void
      */
-    public function drawMainCircle($x, $y, $colorId, $radiusSize = 7)
+    public function drawMainCircle($x, $y, $colorId, $radiusSize = 6)
     {
         $img = $this->image;
         $radius = ($this->blockSize - 1) / 2;
         $cx = $x + $radius;
         $cy = $y + $radius;
 
-        imageSmoothArc($img, $cx, $cy, $radius * $radiusSize * 2, $radius * $radiusSize * 2, [0, 0, 0, 1], 0, pi() * 2);
-        imageSmoothArc($img, $cx, $cy, $radius * $radiusSize * 1.5, $radius * $radiusSize * 1.5, [255, 255, 255, 1], 0, pi() * 2);
-        imageSmoothArc($img, $cx, $cy, $radius * $radiusSize, $radius * $radiusSize, [150, 109, 5, 1], 0, pi() * 2);
+        imageSmoothArc($img, $cx, $cy, $radius * $radiusSize * 2.5, $radius * $radiusSize * 2.5, [0, 0, 0, 1], 0, pi() * 2);
+        imageSmoothArc($img, $cx, $cy, $radius * $radiusSize * 1.8, $radius * $radiusSize * 1.8, [255, 255, 255, 1], 0, pi() * 2);
+        imageSmoothArc($img, $cx, $cy, $radius * $radiusSize * 1.1, $radius * $radiusSize * 1.1, [150, 109, 5, 1], 0, pi() * 2);
     }
 
 
