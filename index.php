@@ -8,7 +8,7 @@
 
 require(__DIR__ . '/vendor/autoload.php');
 include_once(__DIR__ . '/imageSmoothArc.php');
-include_once('C:\wamp64\helpers\dumpphp\dumping.php');
+//include_once('C:\wamp64\helpers\dumpphp\dumping.php');
 
 $start = microtime(true);
 $renderer = new \BaconQrCode\Renderer\Image\Png();
