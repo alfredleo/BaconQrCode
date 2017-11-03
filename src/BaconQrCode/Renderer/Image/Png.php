@@ -120,8 +120,8 @@ class Png extends AbstractRenderer
         $cx = $x + $radius;
         $cy = $y + $radius;
         $fillColor = $this->colors[$colorId];
-        
-        imageSmoothArc($img, $cx, $cy, $radius * $radiusSize, $radius * $radiusSize, $fillColor, 0, pi() * 1.95);
+
+        imageSmoothArc($img, $cx, $cy, $radius * $radiusSize, $radius * $radiusSize, $this->getRandomDarkColor(), pi() * 0.1, pi() * 1.9);
     }
 
 
@@ -144,6 +144,17 @@ class Png extends AbstractRenderer
         imageSmoothArc($img, $cx, $cy, $radius * $radiusSize * 2.5, $radius * $radiusSize * 2.5, [0, 0, 0, 1], 0, pi() * 2);
         imageSmoothArc($img, $cx, $cy, $radius * $radiusSize * 1.8, $radius * $radiusSize * 1.8, [255, 255, 255, 1], 0, pi() * 2);
         imageSmoothArc($img, $cx, $cy, $radius * $radiusSize * 1.1, $radius * $radiusSize * 1.1, [150, 109, 5, 1], 0, pi() * 2);
+    }
+
+    /**
+     * Returns random dark colors.
+     * @param int $darkColorTreshold
+     * @return array in RGBA format
+     */
+    public function getRandomDarkColor($darkColorTreshold = 100)
+    {
+        $color = [(int)rand(0, $darkColorTreshold), (int)rand(0, $darkColorTreshold), (int)rand(0, $darkColorTreshold), 1];
+        return $color;
     }
 
 
