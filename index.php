@@ -6,6 +6,8 @@
  * Time: 21:35
  */
 
+// for algorithms on pure gd with good antialias see http://create.stephan-brumme.com/antialiased-circle/
+
 require(__DIR__ . '/vendor/autoload.php');
 include_once(__DIR__ . '/imageSmoothArc.php');
 //include_once('C:\wamp64\helpers\dumpphp\dumping.php');
