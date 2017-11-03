@@ -18,8 +18,9 @@ $renderer->setHeight(800);
 $renderer->setWidth(800);
 $writer = new \BaconQrCode\Writer($renderer);
 $text = 'http://www.sabgames.org';
-if (isset($_REQUEST["text"]) && count($_REQUEST["text"]) > 0)
+if (isset($_REQUEST["text"]) && (strlen($_REQUEST["text"]) > 0))
     $text = $_REQUEST["text"];
+
 
 $writer->writeFile($text, 'qrcode.png');
 
