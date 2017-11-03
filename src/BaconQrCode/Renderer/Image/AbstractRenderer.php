@@ -313,21 +313,35 @@ abstract class AbstractRenderer implements RendererInterface
             );
         }
 
+        $mainBlocksize = 7;
+        $removedPoints = [];
         $size = $input->getWidth();
-        $mainSquares = [[3, 3], [3, $size - 4], [$size - 4, 3]];
+        for ($i = 0; $i < $mainBlocksize; $i++) {
+            for ($j = 0; $j < $mainBlocksize; $j++) {
+                $removedPoints[$i][] = $j;
+                $removedPoints[$i][] = $size - $j - 1;
+                $removedPoints[$size - $i - 1][] = $j;
+            }
+        }
+
+        // Set 3 center points of Main squares.
+        $mainSquares = [3 => [3, $size - 4], ($size - 4) => [3]];
         // Main rendering routine.
-        dumppp($input->getWidth());
-        dumppp($input->getHeight());
         for ($inputY = 0, $outputY = $topPadding; $inputY < $inputHeight; $inputY++, $outputY += $multiple) {
             for ($inputX = 0, $outputX = $leftPadding; $inputX < $inputWidth; $inputX++, $outputX += $multiple) {
-                // here we removing 7x7 3 Pisition squares.
                 if ($input->get($inputX, $inputY) === 1) {
+                    // here we removing 7x7 3 Position squares.
+                    if (!(isset($removedPoints[$inputX]) && in_array($inputY, $removedPoints[$inputX], true))) {
+                        $this->drawBlock($outputX, $outputY, 'foreground');
+                    }
+                    if (isset($mainSquares[$inputX]) && in_array($inputY, $mainSquares[$inputX])) {
+                        $this->drawMainCircle($outputX, $outputY, 'foreground');
+                    }
 
-                    dumppp($inputX . '-' . $inputY . ', ' . $outputX . '-' . $outputY);
-                    $this->drawBlock($outputX, $outputY, 'foreground');
                 }
             }
         }
+
 
         foreach ($this->decorators as $decorator) {
             $decorator->postProcess(

@@ -15,12 +15,17 @@ $renderer = new \BaconQrCode\Renderer\Image\Png();
 $renderer->setHeight(800);
 $renderer->setWidth(800);
 $writer = new \BaconQrCode\Writer($renderer);
-$writer->writeFile('http://www.sabgames.org', 'qrcode.png');
+$text = 'http://www.sabgames.org';
+if (isset($_REQUEST["text"]))
+    $text = $_REQUEST["text"];
+
+$writer->writeFile($text, 'qrcode.png');
 
 // measure speed
 $end = microtime(true);
 $duration = number_format(($end - $start) * 1000, 3) . "ms";
 
 ?>
+<p>Use: /?text=Here goes your text</p>
     <img src="qrcode.png"/>
 <?php echo $duration; ?>
