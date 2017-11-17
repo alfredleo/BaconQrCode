@@ -8,6 +8,8 @@
 
 // for algorithms on pure gd with good antialias see http://create.stephan-brumme.com/antialiased-circle/
 
+use BaconQrCode\Common\ErrorCorrectionLevel;
+use BaconQrCode\Encoder\Encoder;
 use BaconQrCode\Renderer\Color\Rgb;
 
 require(__DIR__ . '/autoload_register.php');
@@ -29,7 +31,10 @@ if (isset($_REQUEST["text"]) && (strlen($_REQUEST["text"]) > 0)) {
 }
 
 
-$writer->writeFile($text, 'qrcode.png');
+$writer->writeFile($text, 'qrcodeL.png', Encoder::DEFAULT_BYTE_MODE_ECODING, ErrorCorrectionLevel::L);
+//$writer->writeFile($text, 'qrcodeM.png', Encoder::DEFAULT_BYTE_MODE_ECODING, ErrorCorrectionLevel::M);
+//$writer->writeFile($text, 'qrcodeQ.png', Encoder::DEFAULT_BYTE_MODE_ECODING, ErrorCorrectionLevel::Q);
+//$writer->writeFile($text, 'qrcodeH.png', Encoder::DEFAULT_BYTE_MODE_ECODING, ErrorCorrectionLevel::H);
 
 // measure speed
 $end = microtime(true);
@@ -37,5 +42,8 @@ $duration = number_format(($end - $start) * 1000, 3) . "ms";
 
 ?>
     <p>Use: /?text=Here goes your text</p>
-    <img src="qrcode.png"/>
+    <img src="qrcodeL.png"/>
+<!--    <img src="qrcodeM.png"/>-->
+<!--    <img src="qrcodeQ.png"/>-->
+<!--    <img src="qrcodeH.png"/>-->
 <?php echo $duration; ?>

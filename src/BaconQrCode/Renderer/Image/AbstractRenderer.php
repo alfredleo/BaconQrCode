@@ -131,7 +131,7 @@ abstract class AbstractRenderer implements RendererInterface
     }
 
     /**
-     * Sets the height around the renderd image.
+     * Sets the height around the rendered image.
      *
      * If the width is smaller than the matrix width plus padding, the renderer
      * will automatically use that as the width instead of the specified one.
