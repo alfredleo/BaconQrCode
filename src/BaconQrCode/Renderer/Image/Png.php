@@ -92,8 +92,6 @@ class Png extends AbstractRenderer
      */
     public function drawBlock($x, $y, $colorId)
     {
-        $this->drawEllipse($x, $y, $colorId);
-        return;
         imagefilledrectangle(
             $this->image,
             $x,
@@ -113,7 +111,7 @@ class Png extends AbstractRenderer
      * @param  string $colorId
      * @return void
      */
-    public function drawEllipse($x, $y, $colorId, $radiusSize = 1.82)
+    public function drawCircle($x, $y, $colorId, $radiusSize = 1.82)
     {
         $img = $this->image;
         $radius = ($this->blockSize - 1) / 2;
@@ -136,7 +134,7 @@ class Png extends AbstractRenderer
      * @param int $radiusSize
      * @return void
      */
-    public function drawMainCircle($x, $y, $colorId, $radiusSize = 6)
+    public function drawFinderPattern($x, $y, $colorId, $radiusSize = 6)
     {
         $img = $this->image;
         $radius = ($this->blockSize - 1) / 2;

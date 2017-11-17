@@ -143,4 +143,28 @@ class Svg extends AbstractRenderer
 
         return $this->prototypeIds[$colorId];
     }
+
+    /**
+     * Draws a circle at a specified position
+     * @param $x
+     * @param $y
+     * @param $colorId
+     * @return void
+     */
+    public function drawCircle($x, $y, $colorId, $radiusSize)
+    {
+        // TODO: Implement drawCircle() method.
+    }
+
+    /**
+     * Draws finder pattern at specified position.
+     * @param $x
+     * @param $y
+     * @param $colorId
+     * @return void
+     */
+    public function drawFinderPattern($x, $y, $colorId, $radiusSize)
+    {
+        // TODO: Implement drawFinderPattern() method.
+    }
 }
