@@ -76,6 +76,13 @@ abstract class AbstractRenderer implements RendererInterface
     protected $backgroundColor;
 
     /**
+     * Finder color.
+     *
+     * @var Color\ColorInterface
+     */
+    protected $finderColor;
+
+    /**
      * Whether dimensions should be rounded down
      *
      * @var boolean
@@ -357,5 +364,27 @@ abstract class AbstractRenderer implements RendererInterface
         }
 
         return $this->getByteStream();
+    }
+
+    /**
+     * Fluent setter
+     * @param Color\ColorInterface $finderColor
+     * @return $this
+     */
+    public function setFinderColor($finderColor)
+    {
+        $this->finderColor = $finderColor;
+        return $this;
+    }
+
+    /**
+     * @return Color\ColorInterface|Color\Gray
+     */
+    public function getFinderColor()
+    {
+        if ($this->finderColor === null) {
+            $this->finderColor = new Color\Gray(100);
+        }
+        return $this->finderColor;
     }
 }

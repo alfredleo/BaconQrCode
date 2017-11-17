@@ -21,10 +21,12 @@ $renderer->setWidth(500);
 $renderer->setMargin(1);
 $renderer->setBackgroundColor(new Rgb(255, 255, 255));
 $renderer->setForegroundColor(new Rgb(51, 49, 60));
+$renderer->setFinderColor(new Rgb(245, 166, 35));
 $writer = new \BaconQrCode\Writer($renderer);
 $text = 'http://aaaaaaaa.bbbbbb.org/api/promotion/getPromotionInfo?id=36';
-if (isset($_REQUEST["text"]) && (strlen($_REQUEST["text"]) > 0))
+if (isset($_REQUEST["text"]) && (strlen($_REQUEST["text"]) > 0)) {
     $text = $_REQUEST["text"];
+}
 
 
 $writer->writeFile($text, 'qrcode.png');
@@ -34,6 +36,6 @@ $end = microtime(true);
 $duration = number_format(($end - $start) * 1000, 3) . "ms";
 
 ?>
-<p>Use: /?text=Here goes your text</p>
+    <p>Use: /?text=Here goes your text</p>
     <img src="qrcode.png"/>
 <?php echo $duration; ?>

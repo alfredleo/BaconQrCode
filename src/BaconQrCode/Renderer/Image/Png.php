@@ -143,10 +143,10 @@ class Png extends AbstractRenderer
 
         imageSmoothArc($img, $cx, $cy, $radius * $radiusSize * 2.5, $radius * $radiusSize * 2.5,
             $this->getForegroundColor()->toRGBA(), 0, pi() * 2);
-        imageSmoothArc($img, $cx, $cy, $radius * $radiusSize * 1.8, $radius * $radiusSize * 1.8
-            , $this->getBackgroundColor()->toRGBA(), 0, pi() * 2);
+        imageSmoothArc($img, $cx, $cy, $radius * $radiusSize * 1.8, $radius * $radiusSize * 1.8,
+            $this->getBackgroundColor()->toRGBA(), 0, pi() * 2);
         imageSmoothArc($img, $cx, $cy, $radius * $radiusSize * 1.1, $radius * $radiusSize * 1.1,
-            [150, 109, 5, 1], 0, pi() * 2);
+            $this->getFinderColor()->toRGBA(), 0, pi() * 2);
     }
 
     /**
