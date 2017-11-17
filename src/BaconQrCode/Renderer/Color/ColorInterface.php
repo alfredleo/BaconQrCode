@@ -12,26 +12,36 @@ namespace BaconQrCode\Renderer\Color;
 /**
  * Color interface.
  */
-interface ColorInterface
+abstract class ColorInterface
 {
     /**
      * Converts the color to RGB.
      *
      * @return Rgb
      */
-    public function toRgb();
+    public abstract function toRgb();
 
     /**
      * Converts the color to CMYK.
      *
      * @return Cmyk
      */
-    public function toCmyk();
+    public abstract function toCmyk();
 
     /**
      * Converts the color to gray.
      *
      * @return Gray
      */
-    public function toGray();
+    public abstract function toGray();
+
+    /**
+     * Outputs color as a four component array with RGBA
+     * @return array
+     */
+    public function toRGBA()
+    {
+        $rgb = $this->toRgb();
+        return [$rgb->getRed(), $rgb->getGreen(), $rgb->getBlue(), 1];
+    }
 }

@@ -14,7 +14,7 @@ use BaconQrCode\Exception;
 /**
  * RGB color.
  */
-class Rgb implements ColorInterface
+class Rgb extends ColorInterface
 {
     /**
      * Red value.
@@ -144,5 +144,15 @@ class Rgb implements ColorInterface
     public function toGray()
     {
         return new Gray(($this->red * 0.21 + $this->green * 0.71 + $this->blue * 0.07) / 2.55);
+    }
+
+    /**
+     * Outputs color as a four component array with RGBA
+     * Overrides parent method for speed.
+     * @return array
+     */
+    public function toRGBA()
+    {
+        return [$this->red, $this->green, $this->blue, 1];
     }
 }

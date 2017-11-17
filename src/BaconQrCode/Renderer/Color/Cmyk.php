@@ -14,7 +14,7 @@ use BaconQrCode\Exception;
 /**
  * CMYK color.
  */
-class Cmyk implements ColorInterface
+class Cmyk extends ColorInterface
 {
     /**
      * Cyan value.

@@ -14,7 +14,7 @@ use BaconQrCode\Exception;
 /**
  * Gray color.
  */
-class Gray implements ColorInterface
+class Gray extends ColorInterface
 {
     /**
      * Gray value.
