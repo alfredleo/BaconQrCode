@@ -122,7 +122,7 @@ class Png extends AbstractRenderer
         $fillColor = $this->colors[$colorId];
 
         imageSmoothArc($img, $cx, $cy, $radius * $radiusSize, $radius * $radiusSize,
-            $this->getRandomDarkColor(), pi() * 0.1, pi() * 1.9);
+            $this->getForegroundColor()->toRGBA(), 0, pi() * 2);
     }
 
 
@@ -144,9 +144,9 @@ class Png extends AbstractRenderer
         $cy = $y + $radius;
 
         imageSmoothArc($img, $cx, $cy, $radius * $radiusSize * 2.5, $radius * $radiusSize * 2.5,
-            [0, 0, 0, 1], 0, pi() * 2);
+            $this->getForegroundColor()->toRGBA(), 0, pi() * 2);
         imageSmoothArc($img, $cx, $cy, $radius * $radiusSize * 1.8, $radius * $radiusSize * 1.8
-            , [255, 255, 255, 1], 0, pi() * 2);
+            , $this->getBackgroundColor()->toRGBA(), 0, pi() * 2);
         imageSmoothArc($img, $cx, $cy, $radius * $radiusSize * 1.1, $radius * $radiusSize * 1.1,
             [150, 109, 5, 1], 0, pi() * 2);
     }
