@@ -1,32 +1,28 @@
 <?php
-/**
- * Created by PhpStorm.
- * User: Alfred
- * Date: 02.11.2017
- * Time: 22:30
- */
+function circle($strokeColor, $fillColor, $backgroundColor, $originX, $originY, $endX, $endY)
+{
+//Create a ImagickDraw object to draw into.
+    $draw = new \ImagickDraw();
 
-// Setup an anti-aliased image and a normal image
-$aa = imagecreatetruecolor(400, 100);
-$normal = imagecreatetruecolor(200, 100);
+    $strokeColor = new \ImagickPixel($strokeColor);
+    $fillColor = new \ImagickPixel($fillColor);
 
-// Switch antialiasing on for one image
-imageantialias($aa, true);
+    $draw->setStrokeOpacity(1);
+    $draw->setStrokeColor($strokeColor);
+    $draw->setFillColor($fillColor);
 
-// Allocate colors
-$red = imagecolorallocate($normal, 255, 0, 0);
-$red_aa = imagecolorallocate($aa, 255, 0, 0);
+    $draw->setStrokeWidth(2);
+    $draw->setFontSize(72);
 
-// Draw two lines, one with AA enabled
-imageline($normal, 0, 0, 200, 100, $red);
-imageline($aa, 0, 0, 200, 100, $red_aa);
+    $draw->circle($originX, $originY, $endX, $endY);
 
-// Merge the two images side by side for output (AA: left, Normal: Right)
-imagecopymerge($aa, $normal, 200, 0, 0, 0, 200, 100, 100);
+    $imagick = new \Imagick();
+    $imagick->newImage(500, 500, $backgroundColor);
+    $imagick->setImageFormat("png");
+    $imagick->drawImage($draw);
 
-// Output image
-header('Content-type: image/png');
+    header("Content-Type: image/png");
+    echo $imagick->getImageBlob();
+}
 
-imagepng($aa);
-imagedestroy($aa);
-imagedestroy($normal);
+//circle();
