@@ -4,7 +4,7 @@ const BCC = 0.552284749831;
 bezier();
 function bezier(
     $strokeColor = 'rgb(88,88,88)',
-    $fillColor = 'rgba(88,99,199,1)',
+    $fillColor = 'rgba(88,99,199,0)',
     $backgroundColor = 'white'
 ) {
     $draw = new \ImagickDraw();
@@ -16,39 +16,47 @@ function bezier(
     $draw->setStrokeColor($strokeColor);
     $draw->setFillColor($fillColor);
 
-    $draw->setStrokeWidth(20);
     // radius
-    $r = 100;
-    $offset = 150;
+    $r = 150.0;
+    $strokeW = 90.0;
+    $offset = 200.0;
+    // used to remove artifacts on high stroke width
+    $ra = 0.01; // default is 0
+    // customized stroke, stroke radius
+    $sr = $strokeW / 2.0;
+    $draw->setStrokeWidth($strokeW);
 
 
     $smoothPointsSet = [
-        [
+        [ // first quarter circle
             ['x' => 0, 'y' => -$r],
             ['x' => $r * BCC, 'y' => -$r],
             ['x' => $r, 'y' => -$r * BCC],
             ['x' => $r, 'y' => 0],
         ],
-        [
-            ['x' => $r, 'y' => 0],
+        [ // second quarter circle
+            ['x' => $r, 'y' => -$r * $ra],
             ['x' => $r, 'y' => $r * BCC],
             ['x' => $r * BCC, 'y' => $r],
-            ['x' => 0, 'y' => $r],
+            ['x' => -$r * $ra, 'y' => $r],
         ],
-        [
+        [ // third quarter circle
             ['x' => 0, 'y' => $r],
             ['x' => -$r * BCC, 'y' => $r],
             ['x' => -$r, 'y' => $r * BCC],
             ['x' => -$r, 'y' => 0],
         ],
-        [
-            ['x' => -$r, 'y' => 0],
-            ['x' => -$r, 'y' => -$r * 0.8],
-            ['x' => -$r, 'y' => 0],
-            ['x' => -$r, 'y' => -$r * 0.8],
-        ],
+//        [ // fourth small quarter circle
+//            ['x' => -$r, 'y' => 0],
+//            ['x' => -$r * BCC, 'y' => $r],
+//            ['x' => -$r, 'y' => $r * BCC],
+//            ['x' => -$r, 'y' => 0],
+//        ],
 
     ];
+    // two straight lines
+    $draw->line(-$r + $offset, $offset, -$r + $offset, -$r + $sr + $offset);
+    $draw->line($offset, -$r + $offset, -$r + $sr + $offset, -$r + $offset);
     foreach ($smoothPointsSet as $points) {
         foreach ($points as &$point) {
             $point['x'] += $offset;
