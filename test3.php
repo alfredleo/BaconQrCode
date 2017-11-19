@@ -1,9 +1,9 @@
 <?php
-// bezier circle constant
+/** bezier quarter circle constant*/
 const BCC = 0.552284749831;
 bezier();
 function bezier(
-    $strokeColor = 'rgb(88,88,88)',
+    $strokeColor = 'rgba(88,88,88, 1)',
     $fillColor = 'rgba(88,99,199,0)',
     $backgroundColor = 'white'
 ) {
@@ -12,17 +12,20 @@ function bezier(
     $strokeColor = new \ImagickPixel($strokeColor);
     $fillColor = new \ImagickPixel($fillColor);
 
-    $draw->setStrokeOpacity(1);
     $draw->setStrokeColor($strokeColor);
     $draw->setFillColor($fillColor);
 
-    // radius
-    $r = 150.0;
-    $strokeW = 90.0;
-    $offset = 200.0;
-    // used to remove artifacts on high stroke width
-    $ra = 0.01; // default is 0
-    // customized stroke, stroke radius
+    /** 3 quarters circle radius */
+    $r = 40.0;
+    /** stroke width */
+    $strokeW = 10.0;
+    /** offset from the center of coordinates */
+    $offset = 50.0;
+    /** used to remove artifacts on high stroke width, on 0 shows artifacts */
+    $ra = 0.01;
+    /** remove artifacts for small quarter circle, on 1 shows artifacts */
+    $ras = 1.1;
+    /** stroke radius*/
     $sr = $strokeW / 2.0;
     $draw->setStrokeWidth($strokeW);
 
@@ -46,44 +49,24 @@ function bezier(
             ['x' => -$r, 'y' => $r * BCC],
             ['x' => -$r, 'y' => 0],
         ],
-//        [ // fourth small quarter circle
-//            ['x' => -$r, 'y' => 0],
-//            ['x' => -$r * BCC, 'y' => $r],
-//            ['x' => -$r, 'y' => $r * BCC],
-//            ['x' => -$r, 'y' => 0],
-//        ],
-
+        [ // fourth small quarter circle
+            ['x' => -$r, 'y' => -$r + $sr * $ras],
+            ['x' => -$r, 'y' => -$r + $sr * (1 - BCC)],
+            ['x' => -$r + $sr * (1 - BCC), 'y' => -$r],
+            ['x' => -$r + $sr * $ras, 'y' => -$r],
+        ],
     ];
     // two straight lines
     $draw->line(-$r + $offset, $offset, -$r + $offset, -$r + $sr + $offset);
     $draw->line($offset, -$r + $offset, -$r + $sr + $offset, -$r + $offset);
+
     foreach ($smoothPointsSet as $points) {
         foreach ($points as &$point) {
             $point['x'] += $offset;
             $point['y'] += $offset;
-            $draw->point($point['x'], $point['y']);
+//            $draw->point($point['x'], $point['y']);
         }
         $draw->bezier($points);
-    }
-
-    $disjointPoints = [
-        [
-            ['x' => 10 * 5, 'y' => 10 * 5],
-            ['x' => 30 * 5, 'y' => 90 * 5],
-            ['x' => 25 * 5, 'y' => 10 * 5],
-            ['x' => 50 * 5, 'y' => 50 * 5],
-        ],
-        [
-            ['x' => 50 * 5, 'y' => 50 * 5],
-            ['x' => 80 * 5, 'y' => 50 * 5],
-            ['x' => 70 * 5, 'y' => 10 * 5],
-            ['x' => 90 * 5, 'y' => 40 * 5],
-        ]
-    ];
-    $draw->translate(0, 200);
-
-    foreach ($disjointPoints as $points) {
-//        $draw->bezier($points);
     }
 
 //Create an image object which the draw commands can be rendered into
