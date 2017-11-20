@@ -114,6 +114,7 @@ class PngImagick extends AbstractRenderer
         $radius = ($this->blockSize) / 2.0; // -1 is removed to make circles stay more closed to each other
         $cx = $x + $radius;
         $cy = $y + $radius;
+//        $this->image->setFillColor($this->getRandomDarkColor());
         $this->image->circle($cx, $cy, $cx, $y);
     }
 
@@ -142,16 +143,13 @@ class PngImagick extends AbstractRenderer
     /**
      * Returns random dark colors.
      * @param int $darkColorTreshold
-     * @return array in RGBA format
+     * @return string in RGBA format
      */
     public function getRandomDarkColor($darkColorTreshold = 100)
     {
-        $color = [
-            (int)rand(0, $darkColorTreshold),
-            (int)rand(0, $darkColorTreshold),
-            (int)rand(0, $darkColorTreshold),
-            1
-        ];
+        $color = 'rgba(' . (int)rand(0, $darkColorTreshold) . ',' .
+            (int)rand(0, $darkColorTreshold) . ',' .
+            (int)rand(0, $darkColorTreshold) . ',1)';
         return $color;
     }
 

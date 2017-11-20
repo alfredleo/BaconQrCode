@@ -20,10 +20,10 @@ $start = microtime(true);
 $renderer = new \BaconQrCode\Renderer\Image\PngImagick();
 $renderer->setHeight(500);
 $renderer->setWidth(500);
-$renderer->setMargin(1);
+$renderer->setMargin(0);
 $renderer->setBackgroundColor(new Rgb(255, 255, 255));
 $renderer->setForegroundColor(new Rgb(51, 49, 60));
-$renderer->setFinderColor(new Rgb(245, 166, 35));
+$renderer->setFinderColor(new Rgb(133, 91, 21));
 $writer = new \BaconQrCode\Writer($renderer);
 $text = 'http://aaaaaaaa.bbbbbb.org/api/promotion/getPromotionInfo?id=36';
 if (isset($_REQUEST["text"]) && (strlen($_REQUEST["text"]) > 0)) {
@@ -31,10 +31,10 @@ if (isset($_REQUEST["text"]) && (strlen($_REQUEST["text"]) > 0)) {
 }
 
 
-$writer->writeFile($text, 'qrcodeL.png', Encoder::DEFAULT_BYTE_MODE_ECODING, ErrorCorrectionLevel::L);
-//$writer->writeFile($text, 'qrcodeM.png', Encoder::DEFAULT_BYTE_MODE_ECODING, ErrorCorrectionLevel::M);
-//$writer->writeFile($text, 'qrcodeQ.png', Encoder::DEFAULT_BYTE_MODE_ECODING, ErrorCorrectionLevel::Q);
-//$writer->writeFile($text, 'qrcodeH.png', Encoder::DEFAULT_BYTE_MODE_ECODING, ErrorCorrectionLevel::H);
+$writer->writeFile($text, 'qrcode.png', Encoder::DEFAULT_BYTE_MODE_ECODING, ErrorCorrectionLevel::L);
+//$writer->writeFile($text, 'qrcode.png', Encoder::DEFAULT_BYTE_MODE_ECODING, ErrorCorrectionLevel::M);
+//$writer->writeFile($text, 'qrcode.png', Encoder::DEFAULT_BYTE_MODE_ECODING, ErrorCorrectionLevel::Q);
+//$writer->writeFile($text, 'qrcode.png', Encoder::DEFAULT_BYTE_MODE_ECODING, ErrorCorrectionLevel::H);
 
 // measure speed
 $end = microtime(true);
@@ -42,7 +42,7 @@ $duration = number_format(($end - $start) * 1000, 3) . "ms";
 
 ?>
     <p>Use: /?text=Here goes your text</p>
-    <img src="qrcodeL.png"/>
+    <img src="qrcode.png"/>
 <!--    <img src="qrcodeM.png"/>-->
 <!--    <img src="qrcodeQ.png"/>-->
 <!--    <img src="qrcodeH.png"/>-->
