@@ -339,11 +339,11 @@ abstract class AbstractRenderer implements RendererInterface
                 if ($input->get($inputX, $inputY) === 1) {
                     // here we removing 7x7 3 Position squares.
                     if (!(isset($removedPoints[$inputX]) && in_array($inputY, $removedPoints[$inputX], true))) {
-//                        $this->drawBlock($outputX, $outputY, 'foreground');
-                        $this->drawCircle($outputX, $outputY, 'foreground', 1.82);
+//                        $this->drawBlock($outputX, $outputY);
+                        $this->drawCircle($outputX, $outputY);
                     }
                     if (isset($mainSquares[$inputX]) && in_array($inputY, $mainSquares[$inputX])) {
-                        $this->drawFinderPattern($outputX, $outputY, 'foreground', 6);
+                        $this->drawFinderPattern($outputX, $outputY, $size);
                     }
 
                 }

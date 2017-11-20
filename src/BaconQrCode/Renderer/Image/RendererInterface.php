@@ -49,25 +49,28 @@ interface RendererInterface extends GeneralRendererInterface
      * @param  string $colorId
      * @return void
      */
-    public function drawBlock($x, $y, $colorId);
+    public function drawBlock($x, $y, $colorId = 'foreground');
 
     /**
      * Draws a circle at a specified position
      * @param $x
      * @param $y
-     * @param $colorId
+     * @param string $colorId
+     * @param int $radiusSize
      * @return void
      */
-    public function drawCircle($x, $y, $colorId, $radiusSize);
+    public function drawCircle($x, $y, $colorId = 'foreground', $radiusSize = 1);
 
     /**
      * Draws finder pattern at specified position.
      * @param $x
      * @param $y
+     * @param int $pointCount
      * @param $colorId
+     * @param int $radiusSize
      * @return void
      */
-    public function drawFinderPattern($x, $y, $colorId, $radiusSize);
+    public function drawFinderPattern($x, $y, $pointCount = 25, $colorId = 'foreground', $radiusSize = 1);
 
     /**
      * Returns the byte stream representing the QR code.

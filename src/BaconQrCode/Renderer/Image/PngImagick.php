@@ -32,6 +32,12 @@ class PngImagick extends AbstractRenderer
     protected $colors = array();
 
     /**
+     * 3 type of finder figure angle
+     * @var array
+     */
+    private $finderOrientation = [0, 90, -90];
+
+    /**
      * init(): defined by RendererInterface.
      *
      * @see    ImageRendererInterface::init()
@@ -87,66 +93,50 @@ class PngImagick extends AbstractRenderer
      * @param  string $colorId
      * @return void
      */
-    public function drawBlock($x, $y, $colorId)
+    public function drawBlock($x, $y, $colorId = 'foreground')
     {
-        return; // TODO: redo with imagick rectangles.
-        imagefilledrectangle(
-            $this->image,
-            $x,
-            $y,
-            $x + $this->blockSize - 1,
-            $y + $this->blockSize - 1,
-            $this->colors[$colorId]
-        );
+        $this->image->rectangle($x, $y, $x + $this->blockSize - 1, $y + $this->blockSize - 1);
     }
 
     /**
-     * drawEllipse(): defined by RendererInterface.
+     * drawCircle(): defined by RendererInterface.
      *
-     * @see    ImageRendererInterface::drawEllipse()
+     * @see    ImageRendererInterface::drawCircle()
      * @param  integer $x
      * @param  integer $y
      * @param  string $colorId
+     * @param  int $radiusSize
      * @return void
      */
-    public function drawCircle($x, $y, $colorId, $radiusSize = 1.82)
+    public function drawCircle($x, $y, $colorId = null, $radiusSize = 0)
     {
-        return; // TODO: redo
-        $img = $this->image;
-        $radius = ($this->blockSize - 1) / 2;
+        // Not sure what this -1 stands for, but it was in the original library.
+        $radius = ($this->blockSize - 1.0) / 2.0;
         $cx = $x + $radius;
         $cy = $y + $radius;
-        $fillColor = $this->colors[$colorId];
-
-        imageSmoothArc($img, $cx, $cy, $radius * $radiusSize, $radius * $radiusSize,
-            $this->getForegroundColor()->toRGBA(), 0, pi() * 2);
+        $this->image->circle($cx, $cy, $cx, $y);
     }
 
 
     /**
-     * drawEllipse(): defined by RendererInterface.
+     * drawFinderPattern(): defined by RendererInterface.
      *
-     * @see    ImageRendererInterface::drawEllipse()
+     * @see    ImageRendererInterface::drawFinderPattern()
      * @param  integer $x
      * @param  integer $y
+     * @param  int $pointCount size of qr code points
      * @param  string $colorId
-     * @param int $radiusSize
+     * @param  int $radiusSize
      * @return void
      */
-    public function drawFinderPattern($x, $y, $colorId, $radiusSize = 6)
+    public function drawFinderPattern($x, $y, $pointCount = 25, $colorId = 'foreground', $radiusSize = 6)
     {
-        return;
-        $img = $this->image;
         $radius = ($this->blockSize - 1) / 2;
         $cx = $x + $radius;
         $cy = $y + $radius;
-
-        imageSmoothArc($img, $cx, $cy, $radius * $radiusSize * 2.495, $radius * $radiusSize * 2.495,
-            $this->getForegroundColor()->toRGBA(), 0, pi() * 2);
-        imageSmoothArc($img, $cx, $cy, $radius * $radiusSize * 1.7, $radius * $radiusSize * 1.7,
-            $this->getBackgroundColor()->toRGBA(), 0, pi() * 2);
-        imageSmoothArc($img, $cx, $cy, $radius * $radiusSize * 1.1, $radius * $radiusSize * 1.1,
-            $this->getFinderColor()->toRGBA(), 0, pi() * 2);
+        // get first array value and remove it
+        $angle = array_shift($this->finderOrientation);
+        $this->drawFinderFigure($cx, $cy, $angle, $radius, $this->image);
     }
 
     /**
@@ -184,5 +174,85 @@ class PngImagick extends AbstractRenderer
         ob_start();
         echo $imagick->getImageBlob();
         return ob_get_clean();
+    }
+
+
+    /**
+     * Draws custom figure
+     * @param $offsetX
+     * @param $offsetY
+     * @param $rotate
+     * @param $pointRadius float radius of small circles in qr code
+     * @param $draw \ImagickDraw
+     */
+    function drawFinderFigure(
+        $offsetX,
+        $offsetY,
+        $rotate,
+        $pointRadius,
+        $draw
+    ) {
+        /** 3 quarters circle radius */
+        $r = 6 * $pointRadius;
+        /** stroke width */
+        $strokeW = $pointRadius * 2;
+        /** used to remove artifacts on high stroke width, on 0 shows artifacts */
+        $ra = 0.01;
+        /** remove artifacts for small quarter circle, on 1 shows artifacts */
+        $ras = 1.1;
+        /** bezier quarter circle constant*/
+        $BCC = 0.552284749831;
+
+        $draw->translate($offsetX, $offsetY);
+        $draw->rotate($rotate);
+        $draw->setStrokeWidth($strokeW);
+        $draw->setFillOpacity(0);
+        $draw->setStrokeOpacity(1);
+
+        $smoothPointsSet = [
+            [ // first quarter circle
+                ['x' => 0, 'y' => -$r],
+                ['x' => $r * $BCC, 'y' => -$r],
+                ['x' => $r, 'y' => -$r * $BCC],
+                ['x' => $r, 'y' => 0],
+            ],
+            [ // second quarter circle
+                ['x' => $r, 'y' => -$r * $ra],
+                ['x' => $r, 'y' => $r * $BCC],
+                ['x' => $r * $BCC, 'y' => $r],
+                ['x' => -$r * $ra, 'y' => $r],
+            ],
+            [ // third quarter circle
+                ['x' => 0, 'y' => $r],
+                ['x' => -$r * $BCC, 'y' => $r],
+                ['x' => -$r, 'y' => $r * $BCC],
+                ['x' => -$r, 'y' => 0],
+            ],
+            [ // fourth small quarter circle
+                ['x' => -$r, 'y' => -$r + $pointRadius * $ras],
+                ['x' => -$r, 'y' => -$r + $pointRadius * (1 - $BCC)],
+                ['x' => -$r + $pointRadius * (1 - $BCC), 'y' => -$r],
+                ['x' => -$r + $pointRadius * $ras, 'y' => -$r],
+            ],
+        ];
+        // two straight lines
+        $draw->line(-$r, 0, -$r, -$r + $pointRadius);
+        $draw->line(0, -$r, -$r + $pointRadius, -$r);
+
+        foreach ($smoothPointsSet as $points) {
+            $draw->bezier($points);
+        }
+
+        // draw middle circle
+        $draw->setFillOpacity(1);
+        $draw->setStrokeOpacity(0);
+        $fillColor = $draw->getFillColor();
+        $draw->setFillColor('rgb(245,166,35)');
+        $draw->circle(0, 0, 0, 3 * $pointRadius);
+        $draw->setFillColor($fillColor);
+
+        // reset coordinate center and rotation
+        $draw->rotate(-$rotate);
+        $draw->translate(-$offsetX, -$offsetY);
     }
 }
