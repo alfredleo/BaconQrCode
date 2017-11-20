@@ -320,37 +320,22 @@ abstract class AbstractRenderer implements RendererInterface
             );
         }
 
-        $size = $input->getWidth() - 1;
-        // Points that are always printed
-        $pointsPrinted = [
-            0 => [0, 1, 2, $size, $size - 1, $size - 2],
-            1 => [0, $size],
-            2 => [0, $size],
-            $size => [0, 1, 2],
-            $size-1 => [0],
-            $size-2 => [0],
-        ];
-
         $mainBlocksize = 7;
         $removedPoints = [];
-
-        // generating points that are in finder pattern and should not be printed
+        $size = $input->getWidth();
         for ($i = 0; $i < $mainBlocksize; $i++) {
             for ($j = 0; $j < $mainBlocksize; $j++) {
                 $removedPoints[$i][] = $j;
-                $removedPoints[$i][] = $size - $j;
-                $removedPoints[$size - $i][] = $j;
+                $removedPoints[$i][] = $size - $j - 1;
+                $removedPoints[$size - $i - 1][] = $j;
             }
         }
 
         // Set 3 center points of Main squares.
-        $mainSquares = [3 => [3, $size - 3], ($size - 3) => [3]];
+        $mainSquares = [3 => [3, $size - 4], ($size - 4) => [3]];
         // Main rendering routine.
         for ($inputY = 0, $outputY = $topPadding; $inputY < $inputHeight; $inputY++, $outputY += $multiple) {
             for ($inputX = 0, $outputX = $leftPadding; $inputX < $inputWidth; $inputX++, $outputX += $multiple) {
-                if (isset($pointsPrinted[$inputX]) && in_array($inputY, $pointsPrinted[$inputX])) {
-                    $this->drawBlock($outputX, $outputY, 'foreground');
-                }
                 if ($input->get($inputX, $inputY) === 1) {
                     // here we removing 7x7 3 Position squares.
                     if (!(isset($removedPoints[$inputX]) && in_array($inputY, $removedPoints[$inputX], true))) {
