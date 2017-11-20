@@ -149,10 +149,15 @@ class Rgb extends ColorInterface
     /**
      * Outputs color as a four component array with RGBA
      * Overrides parent method for speed.
-     * @return array
+     * @param bool $asString
+     * @return array|string
      */
-    public function toRGBA()
+    public function toRGBA($asString = false)
     {
-        return [$this->red, $this->green, $this->blue, 1];
+        if ($asString) {
+            return 'rgba(' . $this->red . ',' . $this->green . ',' . $this->blue . ',1)';
+        } else {
+            return [$this->red, $this->green, $this->blue, 1];
+        }
     }
 }

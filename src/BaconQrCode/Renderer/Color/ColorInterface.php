@@ -37,11 +37,16 @@ abstract class ColorInterface
 
     /**
      * Outputs color as a four component array with RGBA
-     * @return array
+     * @param bool $asString
+     * @return array|string
      */
-    public function toRGBA()
+    public function toRGBA($asString = false)
     {
         $rgb = $this->toRgb();
-        return [$rgb->getRed(), $rgb->getGreen(), $rgb->getBlue(), 1];
+        if ($asString) {
+            return 'rgba(' . $rgb->getRed() . ',' . $rgb->getGreen() . ',' . $rgb->getBlue() . ',1)';
+        } else {
+            return [$rgb->getRed(), $rgb->getGreen(), $rgb->getBlue(), 1];
+        }
     }
 }
