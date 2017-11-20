@@ -110,8 +110,8 @@ class PngImagick extends AbstractRenderer
      */
     public function drawCircle($x, $y, $colorId = null, $radiusSize = 0)
     {
-        // Not sure what this -1 stands for, but it was in the original library.
-        $radius = ($this->blockSize - 1.0) / 2.0;
+        // -1 is used for the right block size, as there is one pixel line between all blocks
+        $radius = ($this->blockSize) / 2.0; // -1 is removed to make circles stay more closed to each other
         $cx = $x + $radius;
         $cy = $y + $radius;
         $this->image->circle($cx, $cy, $cx, $y);
@@ -247,7 +247,7 @@ class PngImagick extends AbstractRenderer
         $draw->setFillOpacity(1);
         $draw->setStrokeOpacity(0);
         $fillColor = $draw->getFillColor();
-        $draw->setFillColor('rgb(245,166,35)');
+        $draw->setFillColor($this->getFinderColor()->toRGBA(true));
         $draw->circle(0, 0, 0, 3 * $pointRadius);
         $draw->setFillColor($fillColor);
 
