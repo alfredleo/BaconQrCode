@@ -20,7 +20,7 @@ class PngImagick extends AbstractRenderer
     /**
      * Image resource used when drawing.
      *
-     * @var resource
+     * @var \ImagickDraw
      */
     protected $image;
 
@@ -39,14 +39,11 @@ class PngImagick extends AbstractRenderer
      */
     public function init()
     {
-        $draw = new \ImagickDraw();
-
-        $imagick = new \Imagick();
-        $imagick->newImage($this->finalWidth, $this->finalHeight, $this->getBackgroundColor());
-        $imagick->setImageFormat("png");
-        $this->image = imagecreatetruecolor($this->finalWidth, $this->finalHeight);
-//        imageantialias($this->image, true);
-//        imagealphablending($this->image, true);
+        $this->image = new \ImagickDraw();
+        $strokeColor = new \ImagickPixel($this->getForegroundColor()->toRGBA(true));
+        $fillColor = new \ImagickPixel($this->getForegroundColor()->toRGBA(true));
+        $this->image->setStrokeColor($strokeColor);
+        $this->image->setFillColor($fillColor);
     }
 
     /**
@@ -66,12 +63,7 @@ class PngImagick extends AbstractRenderer
 
         $color = $color->toRgb();
 
-        $this->colors[$id] = imagecolorallocate(
-            $this->image,
-            $color->getRed(),
-            $color->getGreen(),
-            $color->getBlue()
-        );
+        $this->colors[$id] = $color->toRGBA(true);
     }
 
     /**
@@ -83,7 +75,7 @@ class PngImagick extends AbstractRenderer
      */
     public function drawBackground($colorId)
     {
-        imagefill($this->image, 0, 0, $this->colors[$colorId]);
+        // Background color is set in init
     }
 
     /**
@@ -97,6 +89,7 @@ class PngImagick extends AbstractRenderer
      */
     public function drawBlock($x, $y, $colorId)
     {
+        return; // TODO: redo with imagick rectangles.
         imagefilledrectangle(
             $this->image,
             $x,
@@ -118,6 +111,7 @@ class PngImagick extends AbstractRenderer
      */
     public function drawCircle($x, $y, $colorId, $radiusSize = 1.82)
     {
+        return; // TODO: redo
         $img = $this->image;
         $radius = ($this->blockSize - 1) / 2;
         $cx = $x + $radius;
@@ -141,6 +135,7 @@ class PngImagick extends AbstractRenderer
      */
     public function drawFinderPattern($x, $y, $colorId, $radiusSize = 6)
     {
+        return;
         $img = $this->image;
         $radius = ($this->blockSize - 1) / 2;
         $cx = $x + $radius;
@@ -161,7 +156,12 @@ class PngImagick extends AbstractRenderer
      */
     public function getRandomDarkColor($darkColorTreshold = 100)
     {
-        $color = [(int)rand(0, $darkColorTreshold), (int)rand(0, $darkColorTreshold), (int)rand(0, $darkColorTreshold), 1];
+        $color = [
+            (int)rand(0, $darkColorTreshold),
+            (int)rand(0, $darkColorTreshold),
+            (int)rand(0, $darkColorTreshold),
+            1
+        ];
         return $color;
     }
 
@@ -174,8 +174,15 @@ class PngImagick extends AbstractRenderer
      */
     public function getByteStream()
     {
+        $imagick = new \Imagick();
+        $imagick->newImage($this->finalWidth, $this->finalHeight, $this->getBackgroundColor()->toRGBA(true));
+        $imagick->setImageFormat("png");
+        // Render the draw commands in the ImagickDraw object into the image.
+        $imagick->drawImage($this->image);
+
+        // Send the image to the browser
         ob_start();
-        imagepng($this->image);
+        echo $imagick->getImageBlob();
         return ob_get_clean();
     }
 }

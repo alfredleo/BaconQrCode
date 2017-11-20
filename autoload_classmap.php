@@ -34,6 +34,7 @@ return array(
     'BaconQrCode\Renderer\Image\Decorator\FinderPattern' => __DIR__ . '/src/BaconQrCode/Renderer/Image/Decorator/FinderPattern.php',
     'BaconQrCode\Renderer\Image\Eps' => __DIR__ . '/src/BaconQrCode/Renderer/Image/Eps.php',
     'BaconQrCode\Renderer\Image\Png' => __DIR__ . '/src/BaconQrCode/Renderer/Image/Png.php',
+    'BaconQrCode\Renderer\Image\PngImagick' => __DIR__ . '/src/BaconQrCode/Renderer/Image/PngImagick.php',
     'BaconQrCode\Renderer\Image\RendererInterface' => __DIR__ . '/src/BaconQrCode/Renderer/Image/RendererInterface.php',
     'BaconQrCode\Renderer\Image\Svg' => __DIR__ . '/src/BaconQrCode/Renderer/Image/Svg.php',
     'BaconQrCode\Renderer\RendererInterface' => __DIR__ . '/src/BaconQrCode/Renderer/RendererInterface.php',

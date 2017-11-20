@@ -17,7 +17,7 @@ include_once(__DIR__ . '/imageSmoothArc.php');
 //include_once('C:\wamp64\helpers\dumpphp\dumping.php');
 
 $start = microtime(true);
-$renderer = new \BaconQrCode\Renderer\Image\Png();
+$renderer = new \BaconQrCode\Renderer\Image\PngImagick();
 $renderer->setHeight(500);
 $renderer->setWidth(500);
 $renderer->setMargin(1);
