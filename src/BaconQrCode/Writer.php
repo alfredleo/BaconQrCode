@@ -13,6 +13,7 @@ use BaconQrCode\Common\ErrorCorrectionLevel;
 use BaconQrCode\Encoder\Encoder;
 use BaconQrCode\Exception;
 use BaconQrCode\Renderer\RendererInterface;
+use ReflectionClass;
 
 /**
  * QR code writer.
@@ -92,7 +93,7 @@ class Writer
      * @param  string $content
      * @param  string $filename
      * @param  string $encoding
-     * @param  integer $ecLevel
+     * @param  integer|string $ecLevel
      * @return void
      */
     public function writeFile(
@@ -102,6 +103,11 @@ class Writer
         $ecLevel = ErrorCorrectionLevel::L
     )
     {
+        // add possibility to use as string. Ex: 'L'
+        if(!is_int($ecLevel)){
+            $reflection = new ReflectionClass('\BaconQrCode\Common\ErrorCorrectionLevel');
+            $ecLevel = $reflection->getConstant($ecLevel);
+        }
         file_put_contents($filename, $this->writeString($content, $encoding, $ecLevel));
     }
 }
