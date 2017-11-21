@@ -18,12 +18,12 @@ include_once(__DIR__ . '/imageSmoothArc.php');
 
 $start = microtime(true);
 $renderer = new \BaconQrCode\Renderer\Image\PngImagick();
-$renderer->setHeight(500);
-$renderer->setWidth(500);
+$renderer->setHeight(900);
+$renderer->setWidth(900);
 $renderer->setMargin(0);
 $renderer->setBackgroundColor(new Rgb(255, 255, 255));
-$renderer->setForegroundColor(new Rgb(51, 49, 60));
-$renderer->setFinderColor(new Rgb(133, 91, 21));
+$renderer->setForegroundColor(new Rgb(34, 37, 42));
+$renderer->setFinderColor(new Rgb(208, 2, 27));
 $writer = new \BaconQrCode\Writer($renderer);
 $text = 'http://aaaaaaaa.bbbbbb.org/api/promotion/getPromotionInfo?id=36';
 if (isset($_REQUEST["text"]) && (strlen($_REQUEST["text"]) > 0)) {

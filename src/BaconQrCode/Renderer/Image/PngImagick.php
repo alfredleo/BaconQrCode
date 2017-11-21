@@ -190,8 +190,8 @@ class PngImagick extends AbstractRenderer
         $pointRadius,
         $draw
     ) {
-        /** 3 quarters circle radius */
-        $r = 6 * $pointRadius;
+        /** 3 quarters circle radius, 3 is the empty lines offset */
+        $r = 6 * $pointRadius + 3;
         /** stroke width */
         $strokeW = $pointRadius * 2;
         /** used to remove artifacts on high stroke width, on 0 shows artifacts */
@@ -246,7 +246,8 @@ class PngImagick extends AbstractRenderer
         $draw->setStrokeOpacity(0);
         $fillColor = $draw->getFillColor();
         $draw->setFillColor($this->getFinderColor()->toRGBA(true));
-        $draw->circle(0, 0, 0, 3 * $pointRadius);
+        // +1 is the empty line offset
+        $draw->circle(0, 0, 0, 3 * $pointRadius + 1);
         $draw->setFillColor($fillColor);
 
         // reset coordinate center and rotation
