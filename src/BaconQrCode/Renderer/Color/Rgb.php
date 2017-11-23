@@ -67,9 +67,20 @@ class Rgb extends ColorInterface
      * @param $colorArray array [r,g,b] format
      * @return Rgb
      */
-    public static function RGBfromArray($colorArray=[255,255,255])
+    public static function RGBfromArray($colorArray = [255, 255, 255])
     {
         return new RGB($colorArray[0], $colorArray[1], $colorArray[2]);
+    }
+
+    /**
+     * @param string $colorHex
+     * @return Rgb
+     *
+     */
+    public static function RGBfromHex($colorHex = 'ffffff')
+    {
+        list($r, $g, $b) = sscanf($colorHex, "#%02x%02x%02x");
+        return new RGB($r, $g, $b);
     }
 
     /**
