@@ -77,7 +77,7 @@ class Rgb extends ColorInterface
      * @return Rgb
      *
      */
-    public static function RGBfromHex($colorHex = 'ffffff')
+    public static function RGBfromHex($colorHex = '#ffffff')
     {
         list($r, $g, $b) = sscanf($colorHex, "#%02x%02x%02x");
         return new RGB($r, $g, $b);
