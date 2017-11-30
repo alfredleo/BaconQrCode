@@ -206,6 +206,7 @@ class PngImagick extends AbstractRenderer
         $draw->setStrokeWidth($strokeW);
         $draw->setFillOpacity(0);
         $draw->setStrokeOpacity(1);
+        $draw->setStrokeColor($this->getFinderColor()->toRGBA(true));
 
         $smoothPointsSet = [
             [ // first quarter circle
@@ -245,7 +246,7 @@ class PngImagick extends AbstractRenderer
         $draw->setFillOpacity(1);
         $draw->setStrokeOpacity(0);
         $fillColor = $draw->getFillColor();
-        $draw->setFillColor($this->getFinderColor()->toRGBA(true));
+        $draw->setFillColor($this->getFinderEyeColor()->toRGBA(true));
         // +1 is the empty line offset
         $draw->circle(0, 0, 0, 3 * $pointRadius + 1);
         $draw->setFillColor($fillColor);

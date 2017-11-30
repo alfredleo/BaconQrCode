@@ -76,6 +76,13 @@ abstract class AbstractRenderer implements RendererInterface
     protected $backgroundColor;
 
     /**
+     * Finder eye color.
+     *
+     * @var Color\ColorInterface
+     */
+    protected $finderEyeColor;
+
+    /**
      * Finder color.
      *
      * @var Color\ColorInterface
@@ -371,6 +378,17 @@ abstract class AbstractRenderer implements RendererInterface
      * @param Color\ColorInterface $finderColor
      * @return $this
      */
+    public function setFinderEyeColor($finderColor)
+    {
+        $this->finderEyeColor = $finderColor;
+        return $this;
+    }
+
+    /**
+     * Fluent setter
+     * @param Color\ColorInterface $finderColor
+     * @return $this
+     */
     public function setFinderColor($finderColor)
     {
         $this->finderColor = $finderColor;
@@ -386,5 +404,16 @@ abstract class AbstractRenderer implements RendererInterface
             $this->finderColor = new Color\Gray(100);
         }
         return $this->finderColor;
+    }
+
+    /**
+     * @return Color\ColorInterface|Color\Gray
+     */
+    public function getFinderEyeColor()
+    {
+        if ($this->finderEyeColor === null) {
+            $this->finderEyeColor = new Color\Gray(100);
+        }
+        return $this->finderEyeColor;
     }
 }
