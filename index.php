@@ -22,8 +22,9 @@ $renderer->setHeight(500);
 $renderer->setWidth(500);
 $renderer->setMargin(0);
 $renderer->setBackgroundColor(Rgb::RGBfromHex('#ffffff'));
-$renderer->setForegroundColor(Rgb::RGBfromHex('#f04e29'));
-$renderer->setFinderColor(Rgb::RGBfromHex('#ff961c'));
+$renderer->setForegroundColor(Rgb::RGBfromHex('#b30814'));
+$renderer->setFinderColor(Rgb::RGBfromHex('#22252a'));
+$renderer->setFinderEyeColor(Rgb::RGBfromHex('#ae192b'));
 $writer = new \BaconQrCode\Writer($renderer);
 $text = 'http://aaaaaaaa.bbbbbb.org/api/promotion/getPromotionInfo?id=36';
 if (isset($_REQUEST["text"]) && (strlen($_REQUEST["text"]) > 0)) {

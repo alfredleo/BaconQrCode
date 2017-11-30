@@ -90,7 +90,7 @@ class Png extends AbstractRenderer
      * @param  string $colorId
      * @return void
      */
-    public function drawBlock($x, $y, $colorId)
+    public function drawBlock($x, $y, $colorId = 'foreground')
     {
         imagefilledrectangle(
             $this->image,
@@ -111,7 +111,7 @@ class Png extends AbstractRenderer
      * @param  string $colorId
      * @return void
      */
-    public function drawCircle($x, $y, $colorId, $radiusSize = 1.82)
+    public function drawCircle($x, $y, $colorId = 'foreground', $radiusSize = 1.82)
     {
         $img = $this->image;
         $radius = ($this->blockSize - 1) / 2;
@@ -130,11 +130,12 @@ class Png extends AbstractRenderer
      * @see    ImageRendererInterface::drawEllipse()
      * @param  integer $x
      * @param  integer $y
+     * @param int $pointCount
      * @param  string $colorId
-     * @param int $radiusSize
+     * @param  int $radiusSize
      * @return void
      */
-    public function drawFinderPattern($x, $y, $colorId, $radiusSize = 6)
+    public function drawFinderPattern($x, $y, $pointCount = 25, $colorId = 'foreground', $radiusSize = 6)
     {
         $img = $this->image;
         $radius = ($this->blockSize - 1) / 2;
@@ -146,7 +147,7 @@ class Png extends AbstractRenderer
         imageSmoothArc($img, $cx, $cy, $radius * $radiusSize * 1.7, $radius * $radiusSize * 1.7,
             $this->getBackgroundColor()->toRGBA(), 0, pi() * 2);
         imageSmoothArc($img, $cx, $cy, $radius * $radiusSize * 1.1, $radius * $radiusSize * 1.1,
-            $this->getFinderColor()->toRGBA(), 0, pi() * 2);
+            $this->getFinderEyeColor()->toRGBA(), 0, pi() * 2);
     }
 
     /**
@@ -156,7 +157,12 @@ class Png extends AbstractRenderer
      */
     public function getRandomDarkColor($darkColorTreshold = 100)
     {
-        $color = [(int)rand(0, $darkColorTreshold), (int)rand(0, $darkColorTreshold), (int)rand(0, $darkColorTreshold), 1];
+        $color = [
+            (int)rand(0, $darkColorTreshold),
+            (int)rand(0, $darkColorTreshold),
+            (int)rand(0, $darkColorTreshold),
+            1
+        ];
         return $color;
     }
 
