@@ -11,12 +11,18 @@ namespace BaconQrCode\Renderer\Image;
 
 use BaconQrCode\Exception;
 use BaconQrCode\Renderer\Color\ColorInterface;
+use ImagickPixel;
 
 /**
  * PNG backend.
  */
 class PngImagick extends AbstractRenderer
 {
+    /**
+     * @var float circle radius
+     */
+    private $radius;
+
     /**
      * Image resource used when drawing.
      *
@@ -45,6 +51,10 @@ class PngImagick extends AbstractRenderer
      */
     public function init()
     {
+        // -1 is used for the right block size, as there is one pixel line between all blocks
+        // -1 is removed to make circles stay more closed to each other
+        $this->radius = ($this->blockSize) / 2;
+
         $this->image = new \ImagickDraw();
         $strokeColor = new \ImagickPixel($this->getForegroundColor()->toRGBA(true));
         $fillColor = new \ImagickPixel($this->getForegroundColor()->toRGBA(true));
@@ -110,10 +120,8 @@ class PngImagick extends AbstractRenderer
      */
     public function drawCircle($x, $y, $colorId = null, $radiusSize = 0)
     {
-        // -1 is used for the right block size, as there is one pixel line between all blocks
-        $radius = ($this->blockSize) / 2.0; // -1 is removed to make circles stay more closed to each other
-        $cx = $x + $radius;
-        $cy = $y + $radius;
+        $cx = $x + $this->radius;
+        $cy = $y + $this->radius;
 //        $this->image->setFillColor($this->getRandomDarkColor());
         $this->image->circle($cx, $cy, $cx, $y);
     }
@@ -132,7 +140,8 @@ class PngImagick extends AbstractRenderer
      */
     public function drawFinderPattern($x, $y, $pointCount = 25, $colorId = 'foreground', $radiusSize = 6)
     {
-        $radius = ($this->blockSize - 1) / 2;
+//        $radius = ($this->blockSize - 1) / 2.0;
+        $radius = $this->radius - 0.5;
         $cx = $x + $radius;
         $cy = $y + $radius;
         // get first array value and remove it
@@ -254,5 +263,51 @@ class PngImagick extends AbstractRenderer
         // reset coordinate center and rotation
         $draw->rotate(-$rotate);
         $draw->translate(-$offsetX, -$offsetY);
+    }
+
+    /**
+     * Draws custom logo in the $x, $y coordinates of qr code of size $logosize
+     * @param $x
+     * @param $y
+     * @param int $logoSize
+     * @return mixed|void
+     */
+    public function drawLogo($x, $y, $logoSize = 5)
+    {
+        /** Displacement from center */
+        $c = $logoSize * $this->radius;
+        /** Center of logo */
+        $cx = $x - $this->radius;
+        $cy = $y - $this->radius;
+
+        $this->image->setStrokeOpacity(1);
+        $this->image->setStrokeWidth($this->radius * 1.7);
+        // H lines
+        $this->image->line($cx - $c / 3, $cy, $cx + $c / 3, $cy);
+        $this->image->line($cx + $c / 3, $cy - $c / 2, $cx + $c / 3, $cy + $c / 2);
+        $this->image->line($cx - $c / 3, $cy - $c / 2, $cx - $c / 3, $cy + $c / 2);
+        // surroundings
+        /** Length of lines */
+        $len = $this->radius * 1.5;
+        /** Distance from the center */
+        $dc = $c / 1.4;
+        /** stroke width */
+        $strokeWidth = $this->radius / 2.0;
+        /** custom length add to lines */
+        $w = $strokeWidth / 2.2;
+        $this->image->setStrokeWidth($strokeWidth);
+        $this->image->line($cx - $dc, $cy - $dc - $w, $cy - $dc, $cy - $dc + $len);
+        $this->image->line($cx - $dc, $cy - $dc, $cy - $dc + $len, $cy - $dc);
+
+        $this->image->line($cx + $dc, $cy + $dc + $w, $cy + $dc, $cy + $dc - $len);
+        $this->image->line($cx + $dc, $cy + $dc, $cy + $dc - $len, $cy + $dc);
+
+        $this->image->line($cx + $dc, $cy - $dc - $w, $cy + $dc, $cy - $dc + $len);
+        $this->image->line($cx + $dc, $cy - $dc, $cy + $dc - $len, $cy - $dc);
+
+        $this->image->line($cx - $dc, $cy + $dc + $w, $cy - $dc, $cy + $dc - $len);
+        $this->image->line($cx - $dc, $cy + $dc, $cy - $dc + $len, $cy + $dc);
+
+        $this->image->setStrokeOpacity(0);
     }
 }

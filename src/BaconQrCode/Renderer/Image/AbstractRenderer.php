@@ -340,12 +340,14 @@ abstract class AbstractRenderer implements RendererInterface
         }
         // remove 5x5 center circles to add custom logo.
         $logoSize = 5;
-        $startPoint = (int)(($size - $logoSize) / 2);
+        $startPoint = (int)(($size - $logoSize) / 2.0);
         for ($i = 0; $i < $logoSize; $i++) {
             for ($j = 0; $j < $logoSize; $j++) {
                 $removedPoints[$startPoint + $i][] = $startPoint + $j;
             }
         }
+        // logo center coordinates
+        $logoCenter = $startPoint + (int)($logoSize / 2.0) + 1;
 
         // Set 3 center points of Main squares.
         $mainSquares = [3 => [3, $size - 4], ($size - 4) => [3]];
@@ -361,7 +363,9 @@ abstract class AbstractRenderer implements RendererInterface
                     if (isset($mainSquares[$inputX]) && in_array($inputY, $mainSquares[$inputX])) {
                         $this->drawFinderPattern($outputX, $outputY, $size);
                     }
-
+                }
+                if ($inputX == $logoCenter && $inputY == $logoCenter) {
+                    $this->drawLogo($outputX, $outputY, $logoSize);
                 }
             }
         }

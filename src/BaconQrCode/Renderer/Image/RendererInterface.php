@@ -73,6 +73,15 @@ interface RendererInterface extends GeneralRendererInterface
     public function drawFinderPattern($x, $y, $pointCount = 25, $colorId = 'foreground', $radiusSize = 1);
 
     /**
+     * Draws custom logo in the $x, $y coordinates of qr code of size $logosize
+     * @param $x
+     * @param $y
+     * @param int $logoSize
+     * @return mixed
+     */
+    public function drawLogo($x, $y, $logoSize = 5);
+
+    /**
      * Returns the byte stream representing the QR code.
      *
      * @return string
