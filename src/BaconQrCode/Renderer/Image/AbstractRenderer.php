@@ -327,6 +327,7 @@ abstract class AbstractRenderer implements RendererInterface
             );
         }
 
+        // remove circles for 3 finder parts of 7x7 size
         $mainBlocksize = 7;
         $removedPoints = [];
         $size = $input->getWidth();
@@ -335,6 +336,14 @@ abstract class AbstractRenderer implements RendererInterface
                 $removedPoints[$i][] = $j;
                 $removedPoints[$i][] = $size - $j - 1;
                 $removedPoints[$size - $i - 1][] = $j;
+            }
+        }
+        // remove 5x5 center circles to add custom logo.
+        $logoSize = 5;
+        $startPoint = (int)(($size - $logoSize) / 2);
+        for ($i = 0; $i < $logoSize; $i++) {
+            for ($j = 0; $j < $logoSize; $j++) {
+                $removedPoints[$startPoint + $i][] = $startPoint + $j;
             }
         }
 
