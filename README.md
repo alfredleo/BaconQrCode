@@ -1,6 +1,12 @@
 QR Code generator
 =================
 
+Rounded QR code example. 
+------------
+
+![Rounded example](statics/img/a7q8.png)
+
+
 Master: [![Build Status](https://api.travis-ci.org/Bacon/BaconQrCode.png?branch=master)](http://travis-ci.org/Bacon/BaconQrCode)
 
 Introduction
